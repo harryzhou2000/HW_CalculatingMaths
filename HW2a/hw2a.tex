@@ -1,0 +1,379 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第2次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{2.1(1-8)}
+
+以下认为讨论的数域是$\mathbb{R}$。
+
+\subsubsection*{(1)}
+分别满足：
+
+线性性：
+显然
+$$
+\int_a^b{f(h+g) dx}=\int_a^b{fh dx}+\int_a^b{fg dx}
+$$
+
+数乘：
+显然
+$$
+\int_a^b{(\alpha f)g dx}=\alpha\int_a^b{fg dx}
+$$
+
+实数域的对称性：
+显然
+$$
+\int_a^b{fg dx}=\int_a^b{gf dx}
+$$
+
+正定性：
+显然
+$$
+\int_a^b{ff dx}\geq 0
+$$，
+且由于$ff\geq 0$，若$\av{f,f}>0$，存在一点使得$ff > 0$，
+因此$f\neq 0$；若$\av{f,f}=0$，
+则一定有$ff=0$，因此$f=0$。所以满足0元素等价于自内积为0。
+
+因此，是内积。
+
+\subsubsection*{(2)}
+不是。当$f$在$x_i, i=1,2,\dots m$点上为0，且存在非零区间时，
+有$f\neq0$且$\av{f,f}=0$，不满足正定性。
+
+\subsection*{2.2(1-11)}
+
+\subsubsection*{(1)}
+\begin{equation*}
+    \begin{aligned}
+        \left\|\bm{A}\right\|_1 =& 6\\
+        \left\|\bm{A}\right\|_2 =& \sqrt{\rho\left(
+            \begin{bmatrix}
+                10 & -14\\-14 & 20
+            \end{bmatrix}
+        \right)}\approx5.4650\\
+        \left\|\bm{A}\right\|_F =& \sqrt{30}\\
+        \rho(\bm{A})\approx&5.372
+    \end{aligned}
+\end{equation*}
+
+\subsubsection*{(2)}
+\begin{equation*}
+    \begin{aligned}
+        \left\|\bm{A}\right\|_1 =& 4\\
+        \left\|\bm{A}\right\|_2 =& \sqrt{\rho\left(
+            \begin{bmatrix}
+                5 & -4 & 1\\-4 & 6 & -4\\1 & -4 & 5
+            \end{bmatrix}
+        \right)}\approx3.4142\\
+        \left\|\bm{A}\right\|_F =& 4\\
+        \rho(\bm{A})\approx&3.4142
+    \end{aligned}
+\end{equation*}
+
+\subsection*{2.3(1-12)}
+\subsubsection*{(1)}
+$$
+\|\bm{x}\|_\infty = \max{\{|x_i|\}}\leq\sum{|x_i|} = \|\bm{x}\|_1
+$$
+左侧得证。
+$$
+\|\bm{x}\|_1=\sum{|x_i|}\leq\sum_{i=1}^n{\max{\{|x_i|\}}}=n\max{\{|x_i|\}}
+=n\|\bm{x}\|_\infty
+$$
+右侧得证。
+
+\subsubsection*{(2)}
+$$
+\|\bm{x}\|_\infty = \sqrt{(\max{\{|x_i|\}})^2}
+=\sqrt{\max{\{x_i^2\}}}\leq\sqrt{\sum{x_i^2}}=\|\bm{x}\|_2
+$$
+左侧得证。
+$$
+\|\bm{x}\|_2=\sqrt{\sum{x_i^2}}\leq\sqrt{\sum{\max{\{x_i^2\}}}}
+=\sqrt{n}\sqrt{(\max{\{|x_i|\}})^2}=\sqrt{n}\|\bm{x}\|_\infty
+$$
+右侧得证。
+
+\subsubsection*{(3)}
+取二范数下单位矢量$\bm{x}$。
+
+根据从属范数的定义，存在$\bm{x}$使得$\|\bm{Ax}\|_2=\|\bm{A}\|_2$，
+记这个单位向量是$\bm{x_1}$。
+已经证明F范数与向量2范数相容，因此
+$$
+\|\bm{A}\|_2=\|\bm{Ax_1}\|_2\leq\|\bm{A}\|_F
+$$
+左侧得证。
+
+设$\bm{A}$行向量是$\bm{a_i}$，其分别二范数下单位化为$\bm{x_i}$，
+显然$(\bm{a_i}\cdot\bm{x_i})^2=\|\bm{a_i}\|_2^2$。
+
+因此有：
+$$
+\|\bm{A}\|_F^2=\sum_i{\|\bm{a_i}\|_2^2}
+\leq n \sum_i{(\bm{a_i}\cdot\bm{x_1})^2}=n\|\bm{A}\bm{x_1}\|_2^2
+=n\|\bm{A}\|_2^2
+$$
+右侧得证。
+
+\subsection*{2.4(1-15)}
+
+正定阵进行特征分解：$\bm{A}=\bm{Q}\trans\bm{DQ}$，$\bm{D}$
+为正值对角阵。
+
+则：
+
+正定性：$(\bm{Ax},\bm{x})=\bm{x}\trans\bm{Q}\trans\bm{DQx}$
+容易发现，由于对角阵为正对角，设$\bm{Qx}=\bm{y}=[y_1,y_2,...]\trans$，
+因此有$(\bm{Ax},\bm{x})=\lambda_1y_1^2+\lambda_2y_2^2...$，因此
+可知$(\bm{Ax},\bm{x})\geq 0 $且
+$(\bm{Ax},\bm{x})=0 \Leftrightarrow \bm{y}=0 $，
+又由于$\bm{Q}$是可逆的，$\bm{y}=0\Leftrightarrow\bm{x}=0$，
+因此内积正定性满足，开根号后满足范数正定性。
+
+
+齐次性：
+根据内积的线性性，和对称性，
+可知$(\bm{A}(\alpha \bm{x}),\alpha\bm{x})=\alpha^2(\bm{Ax},\bm{x})$
+，开根号后满足齐次性。
+
+三角不等式：
+$$
+\|\bm{x+y}\|^2_A=\|\bm{x}\|^2_A+\|\bm{y}\|^2_A+2(\bm{Ax},\bm{y})
+\leq\|\bm{x}\|^2_A+\|\bm{y}\|^2_A+2\|\bm{y}\|_A\|\bm{x}\|_A
+=(\|\bm{y}\|_A+\|\bm{x}\|_A)^2
+$$
+上式中间为柯西-施瓦茨不等式。
+因此满足三角不等式。
+
+综上为范数。
+
+\subsection*{2.5(1-17)}
+
+由于两个矩阵的任意性，以及正交阵的转置还是正交阵，下面证明$\bm{QA}$相关
+的等号就证明了$\bm{AQ}$的等号。
+
+根据二范数的生成范数定义，找到使得$\|\bm{Ax}\|_2$最大的单位向量$\bm{x}$
+后，由于左乘正交阵$\bm{Q}$不改变$\|\bm{Ax}\|$的二范数，
+可知取最大值的$\bm{x}$不变，则对应的矩阵二范数不变，第一个式子证明。
+
+设$A$的列向量是$\bm{a_i}$，由于
+$\|\bm{A}\|_F^2=\sum_i\|\bm{a_i}\|_2^2$，且
+$\|\bm{QA}\|_F^2=\sum_i\|\bm{Qa_i}\|_2^2$
+，又正交变换不改变列向量的二范数，所以F范数也没有改变。
+
+\subsection*{2.6(1-19)}
+\subsubsection*{(1)}
+考虑乘积矩阵的元素：
+$$
+c_{ik}=\sum_{j}a_{ij}b_{jk}
+$$
+当$i<k$，对于所有的$j$，都有$j<k$或者$j>i$，
+因此$a_{ij}=0$或者$b_{jk}=0$，因此求和中每一项是0，因此$c_{ik}=0$。
+
+\subsubsection*{(2)}
+假如对角线有一个元素$a_{mm}=0$，容易发现，$i=m,m+1,...$这部分$n-m+1$个
+列向量构成的矩阵只有$n-m$行是非零的，
+因此这部分列向量是线性相关的，因此矩阵不可逆。
+
+因此，可逆的下三角阵一定是对角全非零。考虑：
+
+$$
+\bm{A}\bm{A}^{-1}=\bm{I}
+$$
+
+通过初等矩阵左乘将$A$变换成对角阵的过程中，左乘的矩阵操作是将某一行之后的
+所有行减去这一行的倍数，具体是$\bm{L}_j$：
+
+$$
+\bm{l}_j=(0,0,...,-a_{j+1,j}/a_{jj},...-a_{n,j}/a{jj}),
+\bm{L}_j=I+\bm{l}_j\bm{e}_j\trans
+$$
+
+其中高斯消元中由于下三角性质前面的操作不影响后面操作的矩阵元素，因此
+实际上第$j$步高斯消元的矩阵元素都是最初的值。
+
+则
+$$
+\bm{D}\bm{A}^{-1} = \bm{L}_n\dots\bm{L}_2\bm{L}_1
+$$
+$\bm{D}$是消元后的对角阵。
+其中每个初等矩阵都是下三角的，所以逆矩阵也是下三角的。
+
+
+
+
+
+% \subsection*{1.1(1-2)}
+
+% 记$y=1-\cos{2^\circ}$，则有以下计算：
+
+% \subsubsection*{(1)}
+
+% $y_1=6\times10^{-4}$，
+% 实际误差：$e_1\approx9.2\times10^{-6}, e_{r1}\approx0.015$
+% 有一位有效数字。
+
+% \subsubsection*{(2)}
+
+% $y_2=6.125\times10^{-4}$，
+% 实际误差：$e_2\approx3.3\times10^{-6}, e_{r2}\approx0.0055$
+% 有两位有效数字。
+
+% \subsubsection*{(3)}
+
+% $y_3\approx6.0918776\times10^{-4}$，
+% 实际误差：$e_3\approx1.5\times10^{-8}, e_{r3}\approx2.4\times10^{-5}$
+% 有四位有效数字。
+
+% \subsubsection*{(4)}
+
+% \begin{equation*}
+%     1-\cos{x} = \frac{1}{2}x^2-\frac{1}{24}x^4+\frac{\sin{\theta}}{120}x^5,\ \
+%     \mathrm{where}\ \theta\in\left[0,x\right]
+% \end{equation*}
+
+% 上式可知，代入$x=\frac{\pi}{90}$，则误差：
+% $e_4<\frac{x^6}{120}<1.6\times10^{-11}$，
+% $e_{r4}<\frac{x^6}{120\times6\times10^{-4}}<2.5\times10^{-8}$
+% 其中绝对误差小于$0.5\times10^{-8}$，因此至少有四位有效数字：
+
+% \begin{equation*}
+%     y_4=\frac{1}{2}(\frac{\pi}{90})^2-\frac{1}{24}(\frac{\pi}{90})^4\approx6.0917298\times10^{-4}
+% \end{equation*}
+% 至少八位有效数字。
+
+% \subsection*{1.2(1-3)}
+
+% 考虑两个公式都是$e^x$在$0$展开的结果，因此根据Lagrange余项，易得：
+
+% 记$y_1=\sum_{n=0}^9{(-1)^n\frac{5^n}{n!}}$，
+% 有$\left|e^{-5}-y_1\right|<\frac{5^{10}}{10!}$
+
+% 记$y_2=\left(\sum_{n=0}^9{\frac{5^n}{n!}}\right)^{-1}$，
+% 有$\left|e^{5}-y_2^{-1}\right|<\frac{5^{10}}{10!}$则有，
+% 则可知$\left|e^{-5}-y_2\right|<\frac{5^{10}}{10!e^{10}}
+%     +O\left(\left(\frac{5^{10}}{10!}\right)^2\right)<\frac{5^{10}}{10!}$
+
+% 可知第二种算法误差小，误差限相差大约$e^{10}$。
+
+% \subsection*{1.3(1-5)}
+
+% \subsubsection*{(1)}
+
+% 原式是两个1量级的数相减得到很小的数，因此进行三角函数变换：
+
+% \begin{equation*}
+%     \text{原式}=\arctan{\frac{N+1-N}{1+N(N+1)}}=\arctan{\frac{1}{1+N(N+1)}}
+% \end{equation*}
+
+% 这样，相对误差意义上，只要三角函数计算足够准确，就不会有明显的精度损失。
+
+% \subsubsection*{(2)}
+
+% 同样，是相减中损失相对误差，恰好可以化为：
+
+% \begin{equation*}
+%     \text{原式}=\frac{1}{\sqrt{x+\frac{1}{x}}+\sqrt{x-\frac{1}{x}}}\frac{2}{x}
+% \end{equation*}
+
+% 这样，没有出现大数相减得到小数，相对误差较小。
+
+% \subsubsection*{(3)}
+
+% \begin{equation*}
+%     \text{原式}=\ln{\frac{x+1}{x}}
+% \end{equation*}
+
+% 只要对数函数计算足够准确，相对误差较小。
+
+% \subsubsection*{(4)}
+
+% \begin{equation*}
+%     \text{原式}=\cos{2x}
+% \end{equation*}
+
+% 只要三角函数计算足够准确，相对误差较小。
+
+% \subsection*{1.4(1-7)}
+
+% \subsubsection*{(1)}
+% 计算可得（四舍五入），
+
+% \begin{table}[H]
+%     \begin{center}
+%         \begin{tabular}{lll}
+%             $n$ & $I_n$(双精度有效部分) & $\widetilde{I_n}$ \\
+%             \hline
+%             0   & 0.632120558828558     & 0.6321        \\
+%             1   & 0.367879441171442     & 0.3679        \\
+%             2   & 0.264241117657115     & 0.2642        \\
+%             3   & 0.207276647028654     & 0.2074        \\
+%             4   & 0.170893411885384     & 0.1704        \\
+%             5   & 0.145532940573080     & 0.1480        \\
+%             6   & 0.126802356561520     & 0.1120        \\
+%             7   & 0.112383504069363     & 0.2160        \\
+%             8   & 0.100931967445092     & -0.7280       \\
+%             9   & 0.0916122929941707    & 7.552         \\
+%             \hline
+%         \end{tabular}
+%     \end{center}
+% \end{table}
+
+% 近似结果是7.552，误差很大。
+
+% \subsubsection*{(2)}
+% 每次计算的$1$和$n$都是准确表示，则容易通过递推
+% $\varepsilon_n=I_n-\widetilde{I_n}=n\left(I_{n-1}-\widetilde{I_{n-1}}\right)$发现，
+% $|\varepsilon_n|=n!|\varepsilon_0|$
+% 考虑每次运算舍入误差的话，每次增加误差限$\varepsilon_{mr}\widetilde{I_n}$，则
+% $|\varepsilon_n|\leq n!|\varepsilon_0|+\sum_{k=1}^n{(n-k)!\left|\varepsilon_{mr}\widetilde{I_n}\right|}$
+
+
+\end{document}
