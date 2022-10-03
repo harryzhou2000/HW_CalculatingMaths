@@ -1,0 +1,175 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第1次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{1.1(1-2)}
+
+记$y=1-\cos{2^\circ}$，则有以下计算：
+
+\subsubsection*{(1)}
+
+$y_1=6\times10^{-4}$，
+实际误差：$e_1\approx9.2\times10^{-6}, e_{r1}\approx0.015$
+有一位有效数字。
+
+\subsubsection*{(2)}
+
+$y_2=6.125\times10^{-4}$，
+实际误差：$e_2\approx3.3\times10^{-6}, e_{r2}\approx0.0055$
+有两位有效数字。
+
+\subsubsection*{(3)}
+
+$y_3\approx6.0918776\times10^{-4}$，
+实际误差：$e_3\approx1.5\times10^{-8}, e_{r3}\approx2.4\times10^{-5}$
+有四位有效数字。
+
+\subsubsection*{(4)}
+
+\begin{equation*}
+    1-\cos{x} = \frac{1}{2}x^2-\frac{1}{24}x^4+\frac{\sin{\theta}}{120}x^5,\ \
+    \mathrm{where}\ \theta\in\left[0,x\right]
+\end{equation*}
+
+上式可知，代入$x=\frac{\pi}{90}$，则误差：
+$e_4<\frac{x^6}{120}<1.6\times10^{-11}$，
+$e_{r4}<\frac{x^6}{120\times6\times10^{-4}}<2.5\times10^{-8}$
+其中绝对误差小于$0.5\times10^{-8}$，因此至少有四位有效数字：
+
+\begin{equation*}
+    y_4=\frac{1}{2}(\frac{\pi}{90})^2-\frac{1}{24}(\frac{\pi}{90})^4\approx6.0917298\times10^{-4}
+\end{equation*}
+至少八位有效数字。
+
+\subsection*{1.2(1-3)}
+
+考虑两个公式都是$e^x$在$0$展开的结果，因此根据Lagrange余项，易得：
+
+记$y_1=\sum_{n=0}^9{(-1)^n\frac{5^n}{n!}}$，
+有$\left|e^{-5}-y_1\right|<\frac{5^{10}}{10!}$
+
+记$y_2=\left(\sum_{n=0}^9{\frac{5^n}{n!}}\right)^{-1}$，
+有$\left|e^{5}-y_2^{-1}\right|<\frac{5^{10}}{10!}$则有，
+则可知$\left|e^{-5}-y_2\right|<\frac{5^{10}}{10!e^{10}}
+    +O\left(\left(\frac{5^{10}}{10!}\right)^2\right)<\frac{5^{10}}{10!}$
+
+可知第二种算法误差小，误差限相差大约$e^{10}$。
+
+\subsection*{1.3(1-5)}
+
+\subsubsection*{(1)}
+
+原式是两个1量级的数相减得到很小的数，因此进行三角函数变换：
+
+\begin{equation*}
+    \text{原式}=\arctan{\frac{N+1-N}{1+N(N+1)}}=\arctan{\frac{1}{1+N(N+1)}}
+\end{equation*}
+
+这样，相对误差意义上，只要三角函数计算足够准确，就不会有明显的精度损失。
+
+\subsubsection*{(2)}
+
+同样，是相减中损失相对误差，恰好可以化为：
+
+\begin{equation*}
+    \text{原式}=\frac{1}{\sqrt{x+\frac{1}{x}}+\sqrt{x-\frac{1}{x}}}\frac{2}{x}
+\end{equation*}
+
+这样，没有出现大数相减得到小数，相对误差较小。
+
+\subsubsection*{(3)}
+
+\begin{equation*}
+    \text{原式}=\ln{\frac{x+1}{x}}
+\end{equation*}
+
+只要对数函数计算足够准确，相对误差较小。
+
+\subsubsection*{(4)}
+
+\begin{equation*}
+    \text{原式}=\cos{2x}
+\end{equation*}
+
+只要三角函数计算足够准确，相对误差较小。
+
+\subsection*{1.4(1-7)}
+
+\subsubsection*{(1)}
+计算可得（四舍五入），
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{lll}
+            $n$ & $I_n$(双精度有效部分) & $\widetilde{I_n}$ \\
+            \hline
+            0   & 0.632120558828558     & 0.6321        \\
+            1   & 0.367879441171442     & 0.3679        \\
+            2   & 0.264241117657115     & 0.2642        \\
+            3   & 0.207276647028654     & 0.2074        \\
+            4   & 0.170893411885384     & 0.1704        \\
+            5   & 0.145532940573080     & 0.1480        \\
+            6   & 0.126802356561520     & 0.1120        \\
+            7   & 0.112383504069363     & 0.2160        \\
+            8   & 0.100931967445092     & -0.7280       \\
+            9   & 0.0916122929941707    & 7.552         \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+近似结果是7.552，误差很大。
+
+\subsubsection*{(2)}
+每次计算的$1$和$n$都是准确表示，则容易通过递推
+$\varepsilon_n=I_n-\widetilde{I_n}=n\left(I_{n-1}-\widetilde{I_{n-1}}\right)$发现，
+$|\varepsilon_n|=n!|\varepsilon_0|$
+考虑每次运算舍入误差的话，每次增加误差限$\varepsilon_{mr}\widetilde{I_n}$，则
+$|\varepsilon_n|\leq n!|\varepsilon_0|+\sum_{k=1}^n{(n-k)!\left|\varepsilon_{mr}\widetilde{I_n}\right|}$
+
+
+\end{document}
