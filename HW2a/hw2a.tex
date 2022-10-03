@@ -151,15 +151,16 @@ $$
 $$
 左侧得证。
 
-设$\bm{A}$行向量是$\bm{a_i}$，其分别二范数下单位化为$\bm{x_i}$，
-显然$(\bm{a_i}\cdot\bm{x_i})^2=\|\bm{a_i}\|_2^2$。
-
+设$\bm{A}$行向量是$\bm{a_i}$
 因此有：
 $$
 \|\bm{A}\|_F^2=\sum_i{\|\bm{a_i}\|_2^2}
-\leq n \sum_i{(\bm{a_i}\cdot\bm{x_1})^2}=n\|\bm{A}\bm{x_1}\|_2^2
+\leq n \max{\{\|\bm{a_i}\|_2^2\}}
+=n\|\bm{A}\bm{e}_{\mathrm{argmax}\{\|\bm{a_i}\|_2^2\}}\|_2^2
+\leq n\|\bm{A}\bm{x_1}\|_2^2
 =n\|\bm{A}\|_2^2
 $$
+其中$\mathrm{argmax}$指的是取最大值时的下标。
 右侧得证。
 
 \subsection*{2.4(1-15)}
