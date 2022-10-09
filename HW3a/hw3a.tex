@@ -1,0 +1,392 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第3次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{3.1(2-3)}
+
+无需选主元直接分解：
+$$
+    \begin{bmatrix}
+        6  & 2 & 1  & -1 \\
+        2  & 4 & 1  & 0  \\
+        1  & 1 & 4  & -1 \\
+        -1 & 0 & -1 & 3  \\
+    \end{bmatrix}
+    =
+    \left[\begin{array}{cccc} 1 & 0 & 0 & 0\\ \frac{1}{3} & 1 & 0 & 0\\ \frac{1}{6} & \frac{1}{5} & 1 & 0\\ -\frac{1}{6} & \frac{1}{10} & -\frac{9}{37} & 1 \end{array}\right]
+    \left[\begin{array}{cccc} 6 & 2 & 1 & -1\\ 0 & \frac{10}{3} & \frac{2}{3} & \frac{1}{3}\\ 0 & 0 & \frac{37}{10} & -\frac{9}{10}\\ 0 & 0 & 0 & \frac{191}{74} \end{array}\right]
+$$
+
+因此有：
+$$
+    L^{-1}b=
+    \left[\begin{array}{c} 6\\ -1\\ \frac{21}{5}\\ \frac{527}{74} \end{array}\right]
+$$
+接着：
+$$
+    U^{-1}L^{-1}b=
+    \left[\begin{array}{c} \frac{281}{191}\\ -\frac{179}{191}\\ \frac{345}{191}\\ \frac{527}{191} \end{array}\right]
+$$
+是解。同时$\det{A}=\det{U}=191$。
+
+\subsection*{3.2(2-8)}
+
+对称正定，有分解$A=LL\trans$：
+$$
+    L=
+    \left[\begin{array}{ccc} 4 & 0 & 0\\ 1 & 2 & 0\\ 2 & -3 & 3 \end{array}\right]
+$$
+
+有
+$$
+    L^{-1}b=
+    \left[\begin{array}{c} -1\\ 2\\ 6 \end{array}\right],
+    (L\trans)^{-1}L^{-1}b=
+    \left[\begin{array}{c} -\frac{9}{4}\\ 4\\ 2 \end{array}\right]
+$$
+
+\subsection*{3.3(2-11)}
+计算：
+$l_1=\sqrt{b_1}, m_2 = \frac{a_2}{\sqrt{b_1}}$，第1列算出。
+考虑第$i<n$列：$l_i=\sqrt{b_i-m_i^2}, m_{i+1}=\frac{b_{i+1}}{l_i}$，
+最后一列：$l_n=\sqrt{b_n-m_n^2}$。
+
+\subsection*{3.4(2-12)}
+
+首先，$\|L\|_2^2=\rho(LL\trans)=\rho(A)$，$\|A\|_2^2=\rho(AA\trans)=\rho(A^2)$。
+同时由于$A$一定有特征分解$A=VDV\trans$，则$A^2$特征分解就是$A^2=VD^2V\trans$，则可知
+$\rho(A^2)=\rho(A)^2$，因此$\|L\|_2^4=\rho(A)^2=\rho(A^2)=\|A\|_2^2$，因此得证。
+
+根据以上递推公式即可得到$m_i,l_i$。
+
+\subsection*{3.5(2-15)}
+
+考虑$A^{-1}=\left[\begin{array}{cc} \frac{1}{6} & -\frac{1}{6}\\ \frac{5}{6} & \frac{1}{6} \end{array}\right]$
+则$\mathrm{cond}_\infty(A)=\|A\|_\infty\|A^{-1}\|_\infty=6$。
+
+考虑$B^{-1}=\left[\begin{array}{ccc} \frac{3}{4} & \frac{1}{2} & \frac{1}{4}\\ \frac{1}{2} & 1 & \frac{1}{2}\\ \frac{1}{4} & \frac{1}{2} & \frac{3}{4} \end{array}\right]$
+则$\mathrm{cond}_2(B)=\|B\|_2\|B^{-1}\|_2=3+2\sqrt{2}\approx5.8$。
+
+\subsection*{3.6(2-18)}
+
+因为$\|A^{-1}\delta A\|\leq\|A^{-1}\|\|\delta A\|< 1$，
+若设$I+A^{-1}\delta A$奇异，则$A^{-1}\delta A$有特征值-1，则其谱半径不小于1，则其矩阵范数不小于1，
+则是矛盾的。因此$I+A^{-1}\delta A$非奇异，因此$A+\delta A$非奇异。
+
+考虑：
+$$
+    \begin{aligned}
+        1 = \|(I+A^{-1}\delta A)(I+A^{-1}\delta A)^{-1}\| =&
+        \|(I+A^{-1}\delta A)^{-1} + A^{-1}\delta A (I+A^{-1}\delta A)^{-1}\|\\
+        \geq&
+        \|(I+A^{-1}\delta A)^{-1}\| - \| A^{-1}\delta A (I+A^{-1}\delta A)^{-1}\|\\
+        \geq&
+        \|(I+A^{-1}\delta A)^{-1}\| - \| A^{-1}\delta A\|\| (I+A^{-1}\delta A)^{-1}\|\\
+        =&
+        (1 - \| A^{-1}\delta A\|)\| (I+A^{-1}\delta A)^{-1}\|
+    \end{aligned}
+$$
+由于$(1 - \| A^{-1}\delta A\|)>0$，即有：
+$$
+\| (I+A^{-1}\delta A)^-1\|\leq \frac{1}{1 - \| A^{-1}\delta A\|}
+$$
+因此
+
+\begin{equation}
+    \| (A+\delta A)^{-1} \|\leq \frac{\|A^{-1}\|}{1 - \| A^{-1}\delta A\|}
+    \leq \frac{\|A^{-1}\|}{1 - \| A^{-1}\|\|\delta A\|}
+\end{equation}
+
+因此：
+\begin{equation}
+    \begin{aligned}
+        \frac{\|A^{-1} - (A+\delta A)^{-1}\|}{\|A^{-1}\|} = &
+        \frac{\|A^{-1}(A+\delta A)^{-1}\delta A\|}{\|A^{-1}\|} \leq
+        \|(A+\delta A)^{-1}\|\|\delta A\|
+        \leq
+        \frac{\|A^{-1}\|\|\delta A\|}{1 - \| A^{-1}\|\|\delta A\|}\\
+        =&
+        \frac{\mathrm{cond}(A)\frac{\|\delta A\|}{\|A\|}}
+        {1 - \mathrm{cond}(A)\frac{\|\delta A\|}{\|A\|}}
+    \end{aligned}
+\end{equation}
+
+\subsection*{3.7(2-19)}
+
+可以直接解得：
+$$
+x+\delta x = \frac{\beta + 1}{\alpha + 1}A^{-1}b = \frac{\beta + 1}{\alpha + 1}x
+\Rightarrow \delta x = \frac{\beta - \alpha }{\alpha + 1} x
+$$
+因此
+$$
+\frac{\|\delta x\|}{\|x\|}  = \frac{|\beta - \alpha |}{\alpha + 1} 
+\leq \frac{|\beta|+|\alpha|}{1-|\alpha|}
+$$
+
+\subsection*{3.8(2-21)}
+
+考虑$A^{-1}B$是奇异的，则存在$x$使得$(I-A^{-1}B)x=x$，因此$(I-A^{-1}B)$有1特征值，因此其谱半径
+不小于1，因此$\|(I-A^{-1}B)\|\geq 1$
+
+因此
+$$
+1\leq\|A^{-1}(A-B)\|\leq\|A^{-1}\|\|A-B\|\Rightarrow
+\frac{1}{\|A^{-1}\|\|A\|}\leq\frac{\|A-B\|}{\|A\|}\Rightarrow
+\frac{1}{\mathrm{cond}(A)}\leq\frac{\|A-B\|}{\|A\|}
+$$
+
+
+
+% \subsection*{2.1(1-8)}
+
+% 以下认为讨论的数域是$\mathbb{R}$。
+
+% \subsubsection*{(1)}
+% 分别满足：
+
+% 线性性：
+% 显然
+% $$
+% \int_a^b{f(h+g) dx}=\int_a^b{fh dx}+\int_a^b{fg dx}
+% $$
+
+% 数乘：
+% 显然
+% $$
+% \int_a^b{(\alpha f)g dx}=\alpha\int_a^b{fg dx}
+% $$
+
+% 实数域的对称性：
+% 显然
+% $$
+% \int_a^b{fg dx}=\int_a^b{gf dx}
+% $$
+
+% 正定性：
+% 显然
+% $$
+% \int_a^b{ff dx}\geq 0
+% $$，
+% 且由于$ff\geq 0$，若$\av{f,f}>0$，存在一点使得$ff > 0$，
+% 因此$f\neq 0$；若$\av{f,f}=0$，
+% 则一定有$ff=0$，因此$f=0$。所以满足0元素等价于自内积为0。
+
+% 因此，是内积。
+
+% \subsubsection*{(2)}
+% 不是。当$f$在$x_i, i=1,2,\dots m$点上为0，且存在非零区间时，
+% 有$f\neq0$且$\av{f,f}=0$，不满足正定性。
+
+% \subsection*{2.2(1-11)}
+
+% \subsubsection*{(1)}
+% \begin{equation*}
+%     \begin{aligned}
+%         \left\|\bm{A}\right\|_1 =& 6\\
+%         \left\|\bm{A}\right\|_2 =& \sqrt{\rho\left(
+%             \begin{bmatrix}
+%                 10 & -14\\-14 & 20
+%             \end{bmatrix}
+%         \right)}\approx5.4650\\
+%         \left\|\bm{A}\right\|_F =& \sqrt{30}\\
+%         \rho(\bm{A})\approx&5.372
+%     \end{aligned}
+% \end{equation*}
+
+% \subsubsection*{(2)}
+% \begin{equation*}
+%     \begin{aligned}
+%         \left\|\bm{A}\right\|_1 =& 4\\
+%         \left\|\bm{A}\right\|_2 =& \sqrt{\rho\left(
+%             \begin{bmatrix}
+%                 5 & -4 & 1\\-4 & 6 & -4\\1 & -4 & 5
+%             \end{bmatrix}
+%         \right)}\approx3.4142\\
+%         \left\|\bm{A}\right\|_F =& 4\\
+%         \rho(\bm{A})\approx&3.4142
+%     \end{aligned}
+% \end{equation*}
+
+% \subsection*{2.3(1-12)}
+% \subsubsection*{(1)}
+% $$
+% \|\bm{x}\|_\infty = \max{\{|x_i|\}}\leq\sum{|x_i|} = \|\bm{x}\|_1
+% $$
+% 左侧得证。
+% $$
+% \|\bm{x}\|_1=\sum{|x_i|}\leq\sum_{i=1}^n{\max{\{|x_i|\}}}=n\max{\{|x_i|\}}
+% =n\|\bm{x}\|_\infty
+% $$
+% 右侧得证。
+
+% \subsubsection*{(2)}
+% $$
+% \|\bm{x}\|_\infty = \sqrt{(\max{\{|x_i|\}})^2}
+% =\sqrt{\max{\{x_i^2\}}}\leq\sqrt{\sum{x_i^2}}=\|\bm{x}\|_2
+% $$
+% 左侧得证。
+% $$
+% \|\bm{x}\|_2=\sqrt{\sum{x_i^2}}\leq\sqrt{\sum{\max{\{x_i^2\}}}}
+% =\sqrt{n}\sqrt{(\max{\{|x_i|\}})^2}=\sqrt{n}\|\bm{x}\|_\infty
+% $$
+% 右侧得证。
+
+% \subsubsection*{(3)}
+% 取二范数下单位矢量$\bm{x}$。
+
+% 根据从属范数的定义，存在$\bm{x}$使得$\|\bm{Ax}\|_2=\|\bm{A}\|_2$，
+% 记这个单位向量是$\bm{x_1}$。
+% 已经证明F范数与向量2范数相容，因此
+% $$
+% \|\bm{A}\|_2=\|\bm{Ax_1}\|_2\leq\|\bm{A}\|_F
+% $$
+% 左侧得证。
+
+% 设$\bm{A}$列向量是$\bm{a_i}$
+% 因此有：
+% $$
+% \|\bm{A}\|_F^2=\sum_i{\|\bm{a_i}\|_2^2}
+% \leq n \max{\{\|\bm{a_i}\|_2^2\}}
+% =n\|\bm{A}\bm{e}_{\mathrm{argmax}\{\|\bm{a_i}\|_2^2\}}\|_2^2
+% \leq n\|\bm{A}\bm{x_1}\|_2^2
+% =n\|\bm{A}\|_2^2
+% $$
+% 其中$\mathrm{argmax}$指的是取最大值时的下标。
+% 右侧得证。
+
+% \subsection*{2.4(1-15)}
+
+% 正定阵进行特征分解：$\bm{A}=\bm{Q}\trans\bm{DQ}$，$\bm{D}$
+% 为正值对角阵。
+
+% 则：
+
+% 正定性：$(\bm{Ax},\bm{x})=\bm{x}\trans\bm{Q}\trans\bm{DQx}$
+% 容易发现，由于对角阵为正对角，设$\bm{Qx}=\bm{y}=[y_1,y_2,...]\trans$，
+% 因此有$(\bm{Ax},\bm{x})=\lambda_1y_1^2+\lambda_2y_2^2...$，因此
+% 可知$(\bm{Ax},\bm{x})\geq 0 $且
+% $(\bm{Ax},\bm{x})=0 \Leftrightarrow \bm{y}=0 $，
+% 又由于$\bm{Q}$是可逆的，$\bm{y}=0\Leftrightarrow\bm{x}=0$，
+% 因此内积正定性满足，开根号后满足范数正定性。
+
+
+% 齐次性：
+% 根据内积的线性性，和对称性，
+% 可知$(\bm{A}(\alpha \bm{x}),\alpha\bm{x})=\alpha^2(\bm{Ax},\bm{x})$
+% ，开根号后满足齐次性。
+
+% 三角不等式：
+% $$
+% \|\bm{x+y}\|^2_A=\|\bm{x}\|^2_A+\|\bm{y}\|^2_A+2(\bm{Ax},\bm{y})
+% \leq\|\bm{x}\|^2_A+\|\bm{y}\|^2_A+2\|\bm{y}\|_A\|\bm{x}\|_A
+% =(\|\bm{y}\|_A+\|\bm{x}\|_A)^2
+% $$
+% 上式中间为柯西-施瓦茨不等式。
+% 因此满足三角不等式。
+
+% 综上为范数。
+
+% \subsection*{2.5(1-17)}
+
+% 由于两个矩阵的任意性，以及正交阵的转置还是正交阵，下面证明$\bm{QA}$相关
+% 的等号就证明了$\bm{AQ}$的等号。
+
+% 根据二范数的生成范数定义，找到使得$\|\bm{Ax}\|_2$最大的单位向量$\bm{x}$
+% 后，由于左乘正交阵$\bm{Q}$不改变$\|\bm{Ax}\|$的二范数，
+% 可知取最大值的$\bm{x}$不变，则对应的矩阵二范数不变，第一个式子证明。
+
+% 设$A$的列向量是$\bm{a_i}$，由于
+% $\|\bm{A}\|_F^2=\sum_i\|\bm{a_i}\|_2^2$，且
+% $\|\bm{QA}\|_F^2=\sum_i\|\bm{Qa_i}\|_2^2$
+% ，又正交变换不改变列向量的二范数，所以F范数也没有改变。
+
+% \subsection*{2.6(1-19)}
+% \subsubsection*{(1)}
+% 考虑乘积矩阵的元素：
+% $$
+% c_{ik}=\sum_{j}a_{ij}b_{jk}
+% $$
+% 当$i<k$，对于所有的$j$，都有$j<k$或者$j>i$，
+% 因此$a_{ij}=0$或者$b_{jk}=0$，因此求和中每一项是0，因此$c_{ik}=0$。
+
+% \subsubsection*{(2)}
+% 假如对角线有一个元素$a_{mm}=0$，容易发现，$i=m,m+1,...$这部分$n-m+1$个
+% 列向量构成的矩阵只有$n-m$行是非零的，
+% 因此这部分列向量是线性相关的，因此矩阵不可逆。
+
+% 因此，可逆的下三角阵一定是对角全非零。考虑：
+
+% $$
+% \bm{A}\bm{A}^{-1}=\bm{I}
+% $$
+
+% 通过初等矩阵左乘将$A$变换成对角阵的过程中，左乘的矩阵操作是将某一行之后的
+% 所有行减去这一行的倍数，具体是$\bm{L}_j$：
+
+% $$
+% \bm{l}_j=(0,0,...,-a_{j+1,j}/a_{jj},...-a_{n,j}/a{jj}),
+% \bm{L}_j=I+\bm{l}_j\bm{e}_j\trans
+% $$
+
+% 其中高斯消元中由于下三角性质前面的操作不影响后面操作的矩阵元素，因此
+% 实际上第$j$步高斯消元的矩阵元素都是最初的值。
+
+% 则
+% $$
+% \bm{D}\bm{A}^{-1} = \bm{L}_n\dots\bm{L}_2\bm{L}_1
+% $$
+% $\bm{D}$是消元后的对角阵。
+% 其中每个初等矩阵都是下三角的，所以逆矩阵也是下三角的。
+
+
+
+
+
+
+
+\end{document}
