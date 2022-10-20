@@ -1,0 +1,164 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第4次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{4.1(3-1)}
+
+\subsubsection*{(1)}
+
+$$
+    x^{(k)}\rightarrow (0, 1, 3)\trans
+$$
+
+$$
+    \sqrt{k^2+k} - k = \frac{k}{\sqrt{k^2+k} + k}
+$$
+则由洛必达：
+$$
+    x^{(k)}\rightarrow (0, 0, \frac{1}{2})\trans
+$$
+
+\subsection*{4.2(3-5)}
+
+
+
+考虑直接写出迭代矩阵：
+$$
+    B_J=\begin{bmatrix}
+        0                      & -\frac{a_{12}}{a_{11}} \\
+        -\frac{a_{21}}{a_{22}} & 0                      \\
+    \end{bmatrix},\hspace*{2em}
+    B_G=\begin{bmatrix}
+        a_{11} & 0      \\
+        a_{21} & a_{22} \\
+    \end{bmatrix}^{-1}\begin{bmatrix}
+        0 & -a_{12} \\
+        0 & 0       \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 & -\frac{a_{12}}{a_{11}}           \\
+        0 & \frac{a_{12}a_{21}}{a_{11}a{22}} \\
+    \end{bmatrix}
+$$
+
+则
+$$
+    \rho(B_J)=\sqrt{\left|\frac{a_{12}a_{21}}{a_{11}a{22}}\right|},
+    \ \ \ \
+    \rho(B_G)=\rho(B_J)^2
+$$
+
+\subsubsection*{(1)}
+
+因此$\rho(B_J)<1\Leftrightarrow\rho(B_G)<1$，因此
+收敛条件等价。
+
+\subsubsection*{(2)}
+
+渐进收敛率：$\frac{R_J}{R_G}=\frac{-\ln\rho(B_J)}{-\ln\rho(B_G)}=\frac{1}{2}$。
+
+\subsubsection*{(3)}
+收敛的充要条件都是：
+
+$$
+    \left|\frac{a_{12}a_{21}}{a_{11}a{22}}\right|
+    =\frac{1}{a^2}<1\Leftrightarrow
+    |a| >1
+$$
+
+\subsection*{4.3(3.11)}
+
+首先很明显，如果收敛则为原方程的解。
+
+因此，收敛条件等价于：
+$$
+    \rho(B)=\rho(I+\alpha A)<1
+$$
+此处直接计算：
+$$
+    \rho\left(
+    \begin{bmatrix}
+            3\alpha + 1 & \alpha      \\
+            2\alpha     & 2\alpha + 1 \\
+        \end{bmatrix}
+    \right) = \max\left\{
+    |1+4\alpha|, |1+\alpha|
+    \right\}<1
+    \Leftrightarrow
+    -\frac{1}{2}<\alpha<0
+$$
+
+由于$\rho=-1-4\alpha$在$\alpha\in[-0.5,-0.4]$，
+且$\rho=1+\alpha$在$\alpha\in[-0.4,0]$，可知其最小值取在
+$\alpha=-0.4$处，此时渐进收敛率最大。   
+
+
+\subsection*{4.4(3.12)}
+迭代矩阵：
+
+$$
+B=I-\omega A
+$$
+
+若$\omega<0$明显有谱半径大于1，不讨论，同时不讨论$\omega=0$，
+则其有特征值$1-\omega\lambda_1\leq ...\leq 1-\omega\lambda_n<1$
+则$\rho(B)=\max\left\{|1-\omega\lambda_1|,|1-\omega\lambda_n|\right\}=\max\left\{\omega\lambda_1-1,1-\omega\lambda_n\right\}$
+因此，$\rho(B)<1\Leftrightarrow  0<\omega \lambda_1<2$
+因此有等价于$\omega\in\left(0,\frac{2}{\lambda}\right)$。
+
+由于当$\omega\in\left(0,\frac{2}{\lambda}\right)$，
+$\rho(B)$最小值明显取在$\omega\lambda_1-1=1-\omega\lambda_n$处，
+因此有此时$\omega=\frac{2}{\lambda_1+\lambda_n}$，这时收敛最快。
+
+
+
+
+
+
+
+\end{document}
