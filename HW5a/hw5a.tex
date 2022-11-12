@@ -1,0 +1,361 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第5次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{5.1(5-2)}
+
+设有$|\lambda_1| \geq |\lambda_2| \geq |\lambda_3|$。
+
+先估计$|\lambda_1|$，由圆盘定理可知对于某一特所有有属于
+$\{z;|z-5.2|\leq 2.8\ or\ |z-0.4|\leq 1.1\ or\ |z-4.7|\leq 2.8\}$，
+因此$|\lambda_1|\leq 8$；
+
+考虑$D=diag(1,0.25,1)$，则
+$$
+    DAD^{-1}=\begin{bmatrix}
+        5.2  & 2.4 & 2.2   \\
+        0.15 & 0.4 & 0.125 \\
+        2.2  & 2   & 4.7   \\
+    \end{bmatrix}
+$$
+
+因此新的特征值的估计为属于：
+$\{z;|z-5.2|\leq 4.6\ or\ |z-0.4|\leq 0.275\ or\ |z-4.7|\leq 2.4\}$
+
+因此，绝对值最小的特征值有：$|\lambda_3|\geq0.125$
+
+综上，根据A是对称的，有$cond_2(A)=\frac{|\lambda_1|}{|\lambda_3|}\leq64$
+
+\subsection*{5.2(5-4)}
+
+采用Householder变换进行QR分解。
+
+首先变换第一列的部分$[1,2,2]\trans$，其二范数是$3$，
+则考虑$v_1=[1,2,2]\trans-[-3,0,0]\trans=[4,2,2]\trans$为差向量，则第一次变换
+$P_1=I-\frac{2v_1v_1\trans}{\|v_1\|^2}=I+\frac{v_1v_1\trans}{12}$，
+有：
+$$
+    P_1=\frac{1}{3}\begin{bmatrix}
+        -1 & -2 & -2 \\
+        -2 & 2  & -1 \\
+        -2 & -1 & 2  \\
+    \end{bmatrix}
+$$
+
+此时
+$$
+    P_1A=\begin{bmatrix}
+        -3 & 3  & -3 \\
+        0  & 0  & -3 \\
+        0  & -3 & 3  \\
+    \end{bmatrix}
+$$
+
+变换第二列部分$[0,-3]\trans$，选取$v_2=[0,0,-3]\trans-[0,3,0]\trans$则有
+$P_1=I-\frac{2v_2v_2\trans}{\|v_2\|^2}$，
+因此
+$$
+    P_2=\begin{bmatrix}
+        1 & 0  & 0  \\
+        0 & 0  & -1 \\
+        0 & -1 & 0  \\
+    \end{bmatrix}
+$$
+
+此时
+$$
+    R=P_2P_1A=\begin{bmatrix}
+        -3 & 3 & -3 \\
+        0  & 3 & -3 \\
+        0  & 0 & 3  \\
+    \end{bmatrix}
+$$
+
+所以
+$$
+    Q=(P_2P_1)\trans=\frac{1}{3}\begin{bmatrix}
+        -1 & -2 & -2 \\
+        2  & 1  & -2 \\
+        2  & -2 & 1  \\
+    \end{bmatrix}\trans=\frac{1}{3}\begin{bmatrix}
+        -1 & 2  & 2  \\
+        -2 & 1  & -2 \\
+        -2 & -2 & 1  \\
+    \end{bmatrix}
+$$
+
+\subsection*{5.3(5-9)}
+
+根据若尔当分解定理可知对于方阵$A\in\mathbb{R}^{n\times n}$，分解为$A=M^{-1}JM$后，
+任意一个不属于$A$特征空间的向量，乘$M^{-1}$后，可正交分解在笛卡尔基上面，其中对应若尔当块头部的部分是特征向量，
+非头部的分量不属于特征空间，记这个单位分向量为$w_{m}$对应特征值$\lambda_m$（其分量只有在这个特征值的若尔当块内有一个1，且不是第一个位置）。
+那么根据若尔当块的幂次（用二项式定理展开）可知，这个单位向量在幂迭代下收敛于若尔当块对应的特征向量，而且与这个单位特征向量
+$v_m$（其分量只有在这个特征值的若尔当块内有一个1，且是第一个位置）幂迭代的差满足$\|\lambda_m^kv_m-J^kw_{m}\|_\infty \leq |\lambda_m|^k\|v\|_\infty \frac{|\lambda_m|}{k}$。
+因此，不属于特征空间的向量在幂法中的渐进性质与特征空间中的是同阶的。
+
+根据本题假设特征值都是实数且满足序关系，即设
+
+$$
+    M^-1u=a_1M^{-1}v_1 + M^{-1}(a_2v_2 + b_2w_2) +...+ M^{-1}(a_nv_n + b_nw_n)
+$$
+
+其中$v_i,w_i$是单位向量， $M^{-1}v_i$
+对应每个若尔当块的头部，则$v_i$是特征向量；$M^{-1}w_2$对应$M^-1u$在每个若尔当块的非头部部分（不存在则为0）。
+其中每个相同的特征值只使用一次。
+
+因此，幂迭代后，有：
+
+$$
+    u_k^*=u_k{\|A^ku\|_\infty}=A^ku
+    =\lambda_1^ka_1v_1 + (\lambda_2^ka_2v_2 + A^kb_2w_2) +...+ (\lambda_n^ka_nv_n + A^kb_nw_n)
+$$
+
+$$
+    \|u_k^*\|_\infty =\|A^ku\|_\infty \leq
+    |\lambda_1|^k|a_1| + |\lambda_2|^k(|a_2| + |b_2|(1+|\lambda_2|/k)) + ...+ |\lambda_n|^k(|a_n| + |b_n|(1+|\lambda_n|/k))
+$$
+
+$$
+    \|u_k^* - A^k|a_1|v_1\|_\infty =\|A^ku - A^k|a_1|v_1\|_\infty \leq
+    |\lambda_2|^k(|a_2| + |b_2|(1+|\lambda_2|/k)) + ...+ |\lambda_n|^k(|a_n| + |b_n|(1+|\lambda_n|/k))
+$$
+
+则相对误差（的极限）为：
+$$
+    \frac{\|u_k-v_1\|_\infty}{\|v_1\|_\infty}
+    \leq
+    \frac{\|A^ku -  A^k|a_1|v_1\|_\infty}{\|A^ku\|_\infty}(1+O(1/k))
+    \leq\left(
+    \frac{|a_2|+|b_2|}{|a_1|}\left|\frac{\lambda_2}{\lambda_1}\right|^k
+    +...+
+    \frac{|a_n|+|b_n|}{|a_1|}\left|\frac{\lambda_n}{\lambda_1}\right|^k
+    \right)(1+O(1/k))
+$$
+
+则$k\rightarrow\infty$时，渐进收敛率可知取决于
+$$
+    \max_{i=2,3...n}\left|\frac{\lambda_i}{\lambda_1}\right|
+$$
+
+事先进行$\alpha$的谱平移，则为最小化
+$$
+    \max_{i=2,3...n}\left|\frac{\lambda_i-\alpha}{\lambda_1-\alpha}\right|=\max_{i=2,n}\left|\frac{\lambda_i-\alpha}{\lambda_1-\alpha}\right|
+$$
+
+当$2\alpha>\lambda_1 + \lambda_n$，大于1，明显不收敛，因此讨论的都是$\lambda_1-\alpha>0$的情形。
+因此，$\frac{\lambda_i-\alpha}{\lambda_1-\alpha}$都是关于$\alpha$单调递减且连续，分别在$\lambda_i$达到零点。
+上面由于关于$\lambda_i$的单调性缩减到只讨论$\frac{\lambda_n-\alpha}{\lambda_1-\alpha}$，
+$\frac{\lambda_2-\alpha}{\lambda_1-\alpha}$两项。
+$\left|\frac{\lambda_2-\alpha}{\lambda_1-\alpha}\right|$的
+左支一定大于$\left|\frac{\lambda_n-\alpha}{\lambda_1-\alpha}\right|$的左支，右支相反，
+因此可知函数最小点出现在$[\lambda_n,\lambda_1]$中间，
+也就是$\left|\frac{\lambda_2-\alpha}{\lambda_1-\alpha}\right|$的左支和
+$\left|\frac{\lambda_n-\alpha}{\lambda_1-\alpha}\right|$的右支相等处，此时
+$\alpha-\lambda_n=\lambda_2-\alpha$，因此最优为$\alpha=(\lambda_2+\lambda_n)/2$
+
+（以上讨论说明，对于不在特征空间内的初始向量，幂法依然可以使用，且不影响收敛率。）
+
+\subsection*{5.4(5-11)}
+
+\subsubsection*{(1)}
+
+$$
+    P=\frac{1}{\sqrt{2}}\begin{bmatrix}
+        \sqrt{2} & 0 & 0  \\
+        0        & 1 & -1 \\
+        0        & 1 & 1  \\
+    \end{bmatrix}
+$$
+
+为变换阵，
+
+$$
+    PA=\begin{bmatrix}
+        2         & -1          & 3            \\
+        2\sqrt{2} & -\sqrt{2}/2 & -3\sqrt{2}/2 \\
+        0         & \sqrt{2}/2  & 5\sqrt{2}/2  \\
+    \end{bmatrix}
+$$
+
+$$
+    PAP^T=\begin{bmatrix}
+        2         & -2\sqrt{2} & \sqrt{2} \\
+        2\sqrt{2} & 1          & -2       \\
+        0         & -2         & 3        \\
+    \end{bmatrix}
+$$
+
+是变换后的上海森堡阵。
+
+\subsubsection*{(2)}
+取$u=[0,4,-2,2]\trans$则
+$$
+    P_1=I-\frac{2uu\trans}{\|u\|^2_2}=
+    \frac{1}{3}
+    \begin{bmatrix}
+        3 & 0  & 0 & 0  \\
+        0 & 1  & 2 & -2 \\
+        0 & 2  & 2 & 1  \\
+        0 & -2 & 1 & -2 \\
+    \end{bmatrix}
+$$
+
+则
+$$
+    P_1A=\frac{1}{3}\left[\begin{array}{cccc} 12 & 3 & -6 & 6\\ -9 & -4 & 10 & -7\\ 0 & 5 & 4 & -1\\ 0 & -2 & -1 & -2 \end{array}\right]
+$$
+
+$$
+    P_1AP_1\trans=\frac{1}{9}\left[\begin{array}{cccc} 36 & -27 & 0 & 0\\ -27 & 38 & 5 & 4\\ 0 & 5 & 17 & -8\\ 0 & 4 & -8 & -1 \end{array}\right]
+$$
+
+
+取$v=[0,0,\sqrt{41}/9+5/9,4/9]\trans$
+$$
+    P_2=I-\frac{2vv\trans}{\|v\|^2_2}=\frac{1}{\sqrt{41}}\left[\begin{array}{cccc} \sqrt{41} & 0 & 0 & 0\\ 0 & \sqrt{41} & 0 & 0\\ 0 & 0 & -5 & -4\\ 0 & 0 & -4 & 5 \end{array}\right]
+$$
+
+$$
+    P_2P_1AP_1\trans=
+    \frac{1}{9\sqrt{41}}\left[\begin{array}{cccc} 36\,\sqrt{41} & -27\,\sqrt{41} & 0 & 0\\ -27\,\sqrt{41} & 38\,\sqrt{41} & 5\,\sqrt{41} & 4\,\sqrt{41}\\ 0 & -41 & -53 & 44\\ 0 & 0 & -108 & 27 \end{array}\right]
+$$
+
+
+$$
+    P_2P_1AP_1 \trans P_2 \trans=
+    \left[\begin{array}{cccc} 4 & -3 & 0 & 0\\ -3 & \frac{38}{9} & -\frac{\sqrt{41}}{9} & 0\\ 0 & -\frac{\sqrt{41}}{9} & \frac{89}{369} & \frac{48}{41}\\ 0 & 0 & \frac{48}{41} & \frac{63}{41} \end{array}\right]
+$$
+为变换后的上海森堡矩阵，变换阵为：
+
+$$
+    P=P_2P_1=
+    \left[\begin{array}{cccc} 1 & 0 & 0 & 0\\ 0 & -\frac{1}{3} & \frac{2}{3} & -\frac{2}{3}\\ 0 & -\frac{2\,\sqrt{41}}{123} & -\frac{14\,\sqrt{41}}{123} & -\frac{13\,\sqrt{41}}{123}\\ 0 & -\frac{6\,\sqrt{41}}{41} & -\frac{\sqrt{41}}{41} & \frac{2\,\sqrt{41}}{41} \end{array}\right]
+$$
+
+\subsection*{5.5(5-12)}
+
+\subsubsection*{(1)}
+
+A对称则有
+$$
+    A\trans Q = A Q = QRQ=R\trans Q\trans Q = R\trans
+$$
+因此
+$$
+    A_1\trans=Q\trans R\trans=Q\trans QRQ=RQ=A_1
+$$
+因此保持对称。
+
+\subsubsection*{(2)}
+
+若$A$是上海森堡，则可知符号不同的分解中，必有一种分解为$P_n...P_2P_1A=R$，也就是
+$$
+    Q=P_1P_2...P_{n-1}
+$$
+
+其中$P_i$为对$i,i+1$行进行的Givens变换。
+根据QR的唯一性，其他所有QR分解都能通过正负号变换转换至此，
+不影响非零元位置，因此以下就此讨论。
+$$
+    A_1=RQ=RP_1P_2...P_{n-1}
+$$
+
+其中记$RP_1P_2...P_m=H_m,m=1,2,...n-1\ H_0=R$，则矩阵元素：
+
+命题：
+$$
+    \begin{aligned}
+        H_m[i+1,i] &= 0,\ \forall i\geq m+1 \\
+        H_m[i+b,i] &= 0,\ \forall b > 1
+    \end{aligned}
+$$
+在$m=0$显然成立，设$m-1$时成立，则$m$时：
+$$
+H_{m}=H_{m-1}P_{m}
+$$
+
+由于是Givens变换，则只涉及第$m,m+1$列发生变化，由于$m-1$的命题成立，
+在第$j$行
+满足$m+2\leq j\leq n$上，第$m,m+1$列已知都是0，所以变换后还是0，
+因此严格下三角部分命题依然成立，同时$H_m[m+2,m+1]$还是0，代表
+-1对角线上面零元素的命题也成立。
+
+综上，命题对所有m成立，因此$A_1=H_{n-1}$是下海森堡矩阵。
+
+\subsection*{5.6(5-14)}
+
+第一种原点位移，则$\mu_1=3$，
+
+$$
+H-\mu_1 I=
+\left[\begin{array}{ccc} 1 & 2 & 1\\ 0 & -2 & 0\\ 0 & 2 & 0 \end{array}\right]
+$$
+
+用Givens变换分解有
+$$
+H-\mu_1 I=QR
+=
+\left[\begin{array}{ccc} 1 & 0 & 0\\ 0 & \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}\\ 0 & -\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{array}\right]
+\left[\begin{array}{ccc} 1 & 2 & 1\\ 0 & -2\,\sqrt{2} & 0\\ 0 & 0 & 0 \end{array}\right]
+$$
+
+则
+
+$$
+RQ=\left[\begin{array}{ccc} 1 & \frac{\sqrt{2}}{2} & \frac{3\,\sqrt{2}}{2}\\ 0 & -2 & -2\\ 0 & 0 & 0 \end{array}\right]
+$$
+
+$$
+H_1=RQ+\mu_1 I=
+\left[\begin{array}{ccc} 4 & \frac{\sqrt{2}}{2} & \frac{3\,\sqrt{2}}{2}\\ 0 & 1 & -2\\ 0 & 0 & 3 \end{array}\right]
+$$
+
+已经收敛，则特征值有$4,3,1$。
+
+
+
+\end{document}
