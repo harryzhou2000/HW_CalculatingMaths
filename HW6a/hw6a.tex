@@ -1,0 +1,275 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第6次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{6.1(6-2)}
+
+有插值多项式节点（拉格朗日）基为：
+
+$$
+    l_i(x) = \prod_{j=0,j\neq i}^n{\frac{
+        x-x_j
+    }{
+        x_i-x_j
+    }}
+$$
+
+则三个节点时有插值多项式：
+
+$$
+    L_2=
+    f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}+
+    f(x_1)\frac{(x-x_2)(x-x_0)}{(x_1-x_2)(x_1-x_0)}+
+    f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}
+$$
+
+$$
+    x_0=1,~x_1=1.05,~x_2=1.07
+$$
+$$
+    [f(x_0),f(x_1),f(x_2)]\approx[2.718281828459046,3.286298785772639,3.527609194972166]
+$$
+
+计算可得具体的数值，$L(1.03)=3.053047591586878$，
+绝对误差$1.1417e-04$。
+
+误差余项为
+
+$$
+    R_2(x)=\frac{f^{(3)}(\xi)}{3!}\omega_3(x)
+    =\frac{7e^{\xi}+3\xi e^{\xi}}{3!}(x-1)(x-1.05)(x-1.07)
+$$
+
+其中$\xi\in(1,1.07)$
+
+则由单调性，
+
+$$
+    |R_2(1.03)|<|\frac{f^{(1.07)}(\xi)}{3!}\omega(1.03)|
+    = 1.1906e-04
+$$
+
+可见这个误差估计比较精确。
+
+\subsection*{6.2(6-12)}
+不妨采用牛顿插值：
+
+均差表是：
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|cccc}
+        x                       \\
+        \hline
+        0 & 0 &   &      &      \\
+        0 & 0 & 0 &      &      \\
+        1 & 1 & 1 & 1    &      \\
+        2 & 1 & 0 & -1/2 & -3/4 \\
+    \end{tabular}
+\end{table}
+
+那么，可知插值函数
+
+$$
+    N_3(x)=0 + 0(x-0) + 1(x-0)(x-0) - \frac{3}{4}(x-0)(x-0)(x-1)
+    =\frac{7}{4}x^2-\frac{3}{4}x^3
+$$
+
+余项
+$$
+    R_3(x)=\omega_3(x)f[x,0,0,1,2]
+    =f[x,0,0,1,2]x^2(x-1)(x-2)
+$$
+
+
+\subsection*{6.3(6-13)}
+不妨采用牛顿插值：
+
+均差表是：
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccccc}
+        x                        \\
+        \hline
+        1 & 0 &    &    &    &   \\
+        1 & 0 & 0  &    &    &   \\
+        1 & 0 & 0  & 4  &    &   \\
+        2 & 1 & 1  & 1  & -3 &   \\
+        3 & 0 & -1 & -1 & -1 & 1 \\
+    \end{tabular}
+\end{table}
+
+那么，可知插值函数
+
+$$
+    N_4(x)=4(x-1)^2-3(x-1)^3+(x-1)^3(x-2)
+$$
+
+余项
+$$
+    R_4(x)=f[x,1,1,1,2,3](x-1)^3(x-2)(x-3)
+$$
+
+
+\subsection*{6.4(6-16)}
+
+$$
+    S'(x)=\left\{
+    \begin{array}{lr}
+        2-3x^2,              & x\in(0,1) \\
+        b+2c(x-1)+3d(x-1)^2, & x\in(1,2) \\
+    \end{array}
+    \right.
+$$
+
+$$
+    S''(x)=\left\{
+    \begin{array}{lr}
+        -6x,        & x\in(0,1) \\
+        2c+6d(x-1), & x\in(1,2) \\
+    \end{array}
+    \right.
+$$
+
+$x=1$处1阶导数连续可知：$-1=b$
+
+$x=1$处2阶导数连续可知：$-6=2c$
+
+$x=2$处2阶导数给定可知：$2c+6d=0$
+
+综上解得$c=-3,~b=-1,~d=1$
+
+\subsection*{6.5(6-17)}
+
+$$
+    S'(x)=\left\{
+    \begin{array}{lr}
+        B+4x-6x^2,          & x\in(0,1) \\
+        b-8(x-1)+21(x-1)^2, & x\in(1,2) \\
+    \end{array}
+    \right.
+$$
+
+$x=1$处0阶导数连续可知：$B+1=1$
+
+$x=1$处1阶导数连续可知：$B-2=b$
+
+解得$b=-2,~B=0$，可知$S'(0)=B=0,~S'(2)=13+b=11$
+
+\subsection*{6.6(6-19)}
+
+\subsubsection*{(1)}
+设出节点的一阶导数$m_i$，已知$m_0=-1,~m_1=1$
+则需要求解$m_1,m_2$，
+根据$x_1,x_2$的二阶导数连续要求，以及Hermite插值
+基函数的二阶导数，列方程有：
+
+$$
+    \begin{bmatrix}
+        2   & 1/4 \\
+        1/2 & 2   \\
+    \end{bmatrix}\begin{bmatrix}
+        m_1 \\
+        m_2 \\
+    \end{bmatrix}
+    =\begin{bmatrix}
+        -3 \\
+        0  \\
+    \end{bmatrix}
+$$
+
+其中用到了$[\lambda_1,\lambda_2]=[1/4,1/2]$，
+$[\mu_1,\mu_2]=[3/4,1/2]$，
+$[d_1,d_2]=[-15/4,1/2]$
+
+解得：$m_1=-48/31~m_2=12/31$，因此
+代入分段Hermite插值有：
+
+$$
+    S(x)=\left\{
+    \begin{array}{lr}
+        \frac{500}{31}+\frac{728\,x}{31}+\frac{329\,x^2}{31}+\frac{45\,x^3}{31},       & x\in(-3,-2) \\
+        \frac{476}{279}+\frac{172\,x}{93}-\frac{19\,x^2}{93}-\frac{98\,x^3}{279},      & x\in(-2,1)  \\
+        \frac{881}{837}+\frac{1063\,x}{279}-\frac{604\,x^2}{279}+\frac{253\,x^3}{837}, & x\in(1,4)   \\
+    \end{array}
+    \right.
+$$
+
+\subsubsection*{(2)}
+设出节点的一阶导数$m_i$，边界上给出二阶导数条件两个，
+根据$x_1,x_2$的二阶导数连续要求，以及Hermite插值
+基函数的二阶导数，列方程有：
+
+$$
+    \left[\begin{array}{cccc} 2 & 1 & 0 & 0\\ \frac{3}{4} & 2 & \frac{1}{4} & 0\\ 0 & \frac{1}{2} & 2 & \frac{1}{2}\\ 0 & 0 & 1 & 2 \end{array}\right]
+    \begin{bmatrix}
+        m_0 \\
+        m_1 \\
+        m_2 \\
+        m_3 \\
+    \end{bmatrix}
+    =\left[\begin{array}{c} -6\\ -\frac{15}{4}\\ \frac{1}{2}\\ -2 \end{array}\right]
+$$
+
+其中用到了$[\lambda_1,\lambda_2]=[1/4,1/2]$，
+$[\mu_1,\mu_2]=[3/4,1/2]$，
+$[d_1,d_2]=[-15/4,1/2]$
+
+解为$\left[\begin{array}{cccc} -\frac{215}{87} & -\frac{92}{87} & \frac{76}{87} & -\frac{125}{87} \end{array}\right]\trans  $
+，因此
+代入分段Hermite插值有：
+$$
+    S(x)=\left\{
+    \begin{array}{lr}
+        \frac{212}{29}+\frac{892\,x}{87}+\frac{123\,x^2}{29}+\frac{41\,x^3}{87},      & x\in(-3,-2) \\
+        \frac{1252}{783}+\frac{440\,x}{261}-\frac{11\,x^2}{261}-\frac{190\,x^3}{783}, & x\in(-2,1)  \\
+        \frac{995}{783}+\frac{697\,x}{261}-\frac{268\,x^2}{261}+\frac{67\,x^3}{783},  & x\in(1,4)   \\
+    \end{array}
+    \right.
+$$
+
+
+\end{document}
