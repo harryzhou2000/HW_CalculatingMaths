@@ -1,0 +1,202 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第7次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{7.1(7-1)}
+
+从自然基开始对内积$(f,g)=\int_{-1}^{1}{\rho fg dx}$正交化：
+
+有$P_0=1$，$Q_1=x,\ (Q_1,P_0)=0,\ (P_0,P_0)=2$，因此有
+$P_1=x,\ (P_1,P_1)=2/3$；取$Q_2=x^2$，则$(Q_2,P_0)=2/3, (Q_2,P_1)=0$，
+因此有$P_2=Q_2-P_0\frac{(Q_2,P_0)}{(P_0,P_0)}-P_1\frac{(Q_2,P_1)}{(P_1,P_1)}=x^2-1/3$，
+取$Q_3=x^3$，则$(Q_3,P_0)=(Q_3,P_2)=0, (Q_3,P_1)=5/2$，类似有$P_3=x^3-(3/5)x$。
+
+取首一多项式为结果则有：
+$$
+    P_1=x,\ P_2=x^2-\frac{1}{3},\ P_3=x^3-\frac{3}{5}x
+$$
+
+\subsection*{7.2(7-2)}
+
+$Q_1=x,\ (Q_1,L_0)=1,\ (L_0,L_0)=1$，则可知$L_1^*=Q_1-L_0\frac{(Q_1,L_0)}{(L_0,L_0)}=x-1$。
+为满足$(L_1,L_1)=1!,\ L_1=1-x$
+
+由递推公式，$L_2=(3-x)(x-1)-1=2-4x+x^2$，$L_3=(5-x)(2-4x+x^2)-4(1-x)=6-18x+9x^2-x^3$。
+
+\subsection*{7.3(7-4)}
+
+零点：$x_1=\cos{\frac{\pi}{6}}=\frac{\sqrt{3}}{2},\ x_2=0,\ x_3=-x_1=-\frac{\sqrt{3}}{2}$
+
+Newton均差表为：
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccc}
+        x                                                                                                                                                \\
+        \hline
+        $-\frac{\sqrt{3}}{2}$ & $\exp(-\frac{\sqrt{3}}{2})$                                                                                              \\
+        0                     & 1                           & $\frac{2-2\exp(-\frac{\sqrt{3}}{2})}{\sqrt{3}}$                                            \\
+        $\frac{\sqrt{3}}{2}$  & $\exp(\frac{\sqrt{3}}{2})$  & $\frac{2\exp(\frac{\sqrt{3}}{2})-2}{\sqrt{3}}$  & $4\frac{\cosh(\frac{\sqrt{3}}{2})-1}{3}$ \\
+    \end{tabular}
+\end{table}
+
+因此插值为：
+$$
+    N_2=\exp(-\frac{\sqrt{3}}{2}) + (x+\frac{\sqrt{3}}{2})\frac{2-2\exp(-\frac{\sqrt{3}}{2})}{\sqrt{3}}
+    +x(x+\frac{\sqrt{3}}{2})\left[\frac{4}{3}(\cosh(\frac{\sqrt{3}}{2})-1)\right]
+$$
+
+\subsection*{7.4(7-7)}
+
+第一题已经计算了Legendre多项式$P_0,P_1,P_2$，
+则$P_1^*=\frac{(P_0,f)}{(P_0,P_0)}P_0+\frac{(P_1,f)}{(P_1,P_1)}P_1=\sinh(1)+x(3e^{-1})$，
+$P_2^*=P_1^*+\frac{(P_2,f)}{(P_2,P_2)}P_2=\sinh(1)+x(3e^{-1})+(x^2-1/3)\frac{15}{4}e^{-1}(e^2-7)$
+
+数值地：
+$$
+    P_1^*\approx 1.1752+1.1036x,\ P_2^*\approx 0.9963+1.1036x+0.5367x^2
+$$
+
+\subsection*{7.5(7-10)}
+第一题已经计算了Legendre多项式$P_0,P_1,P_2，P_3$，则：
+$$
+    \frac{(P_0,f)}{(P_0,P_0)}=0,\
+    \frac{(P_1,f)}{(P_1,P_1)}=\frac{12}{\pi^2},\
+    \frac{(P_2,f)}{(P_2,P_2)}=0,\
+    \frac{(P_3,f)}{(P_3,P_3)}=\frac{420(p^2-10)}{\pi^4}
+$$
+
+因此逼近多项式
+$$
+    P_3^*=\frac{12}{\pi^2}x+\frac{420(p^2-10)}{\pi^4}(x^3-\frac{3}{5}x)
+    \approx 1.5532x -0.5622x^3
+$$
+
+\subsection*{7.6(7-11)}
+
+Maclaurin级数$x=0$处给出：
+$$
+    \ln(x+1)=0+x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\frac{x^5}{5}+\dots
+$$
+$R_{3,2}=\frac{P_3}{Q_2}$中设：
+$$
+    Q_2=1+q_1x+q_2x^2,\ P_2=p_0+p_1x+p_2x^2+p_3x^3
+$$
+
+则根据条件：
+$$
+    (x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\frac{x^5}{5}+\dots)(1+q_1x+q_2x^2)
+    -
+    (p_0+p_1x+p_2x^2+p_3x^3)=c_{6}x^6+\dots
+$$
+
+展开后得：
+$$
+    \begin{aligned}
+        x^5 & :\ \frac{1}{5}-\frac{q_1}{4}+\frac{q_2}{3}=0  \\
+        x^4 & :\ -\frac{1}{4}+\frac{q_1}{3}-\frac{q_2}{2}=0 \\
+    \end{aligned}
+$$
+以及：
+$$
+    \begin{aligned}
+        x^3 & :\ \frac{1}{3}-\frac{q_1}{2}+\frac{q_2}{1}=p_3 \\
+        x^2 & :\ -\frac{1}{2}+\frac{q_1}{1}=p_2              \\
+        x^1 & :\ \frac{1}{1}=p_1                             \\
+        x^0 & :\ 0=p_0                                       \\
+    \end{aligned}
+$$
+
+前两个方程解出：$q_1=\frac{6}{5},\ q_2=\frac{3}{10}$
+因此得到：$p_0=0,\ p_1=1,\ p_2=\frac{7}{10},\ p_3=\frac{1}{30}$
+则：
+
+$$
+    R_{3,2}=\frac{x+\frac{7}{10}x^2+\frac{1}{30}x^3}
+    {1+\frac{6}{5}x+\frac{3}{10}x^2}
+$$
+
+\subsection*{7.7(7-17)}
+
+是线性拟合，对于最小二乘拟合，有线性最小二乘问题：
+$$
+    y_i=a\sin{\pi x_i}+b\cos{\pi x_i}
+$$
+则求：
+$$
+    argmin\left\|\begin{bmatrix}
+        0  & -1 \\
+        -1 & 0  \\
+        0  & 1  \\
+        1  & 0  \\
+        0  & -1
+    \end{bmatrix}\begin{bmatrix}
+        a \\
+        b
+    \end{bmatrix}-\begin{bmatrix}
+        -1 \\0\\1\\2\\1
+    \end{bmatrix}
+    \right\|_2^2
+$$
+求解法方程：
+$$
+    \begin{bmatrix}
+        2 & 0 \\ 0& 3
+    \end{bmatrix}
+    \begin{bmatrix}
+        a \\
+        b
+    \end{bmatrix}=\begin{bmatrix}
+        2\\1
+    \end{bmatrix}
+$$
+可得
+$$
+a=1,\ b=\frac{1}{3}
+$$
+ 
+
+\end{document}
