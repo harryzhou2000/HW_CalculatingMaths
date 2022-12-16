@@ -1,11 +1,12 @@
-N = 20;
+clear; clf;
+N = 21; % partition number
 nm = 100000;
 th = 1e-6;
 h = 1/(N+1);
 IBR = @(i,j,nc) (i-1)*nc + j;
 N = N-2;
 %A = zeros((N+1)^2);
-A = sparse(N+1,N+1);
+A = sparse((N+1)^2,(N+1)^2);
 b = zeros((N+1)^2,1);
 u = b;
 ua = b;
@@ -35,26 +36,40 @@ for i = 1:N+1
         end
     end
 end
-colormap jet
-imagesc(A);
+% colormap jet
+colormap(linspace(1,0,1001)'*ones(1,3));
+imagesc(full(abs(A)));
 colorbar;
 axis equal;
-title(sprintf('N = %d',N+2));
+title(sprintf('N = %d',N+1));
+set(gca,'FontName','Times New Roman');
 %%
 %figure;
 plot(b);
-title(sprintf('N = %d',N+2));
+title(sprintf('N = %d',N+1));
+set(gca,'FontName','Times New Roman');
 %% plot solution
 %x = A\b;
-us = ua;
+colormap jet
+us = A\b;
 us = reshape(us,N+1,N+1);
-[xg,yg] = meshgrid(linspace(h,1-2*h,N+1),linspace(h,1-2*h,N+1));
+[xg,yg] = meshgrid(linspace(h,1-h,N+1),linspace(h,1-h,N+1));
+errmax = max(abs(us - sin(pi*xg).*sin(pi*yg)),[],'all')
 
-surf(xg,yg,us);
+surf(xg,yg,us,'LineStyle','none');
 hold on;
-surf(xg,yg,sin(pi*xg).*sin(pi*yg) -0.5);
+% surf(xg,yg,sin(pi*xg).*sin(pi*yg) -0.0);
 hold off;
+colorbar;
 view(3);
+xlabel('x');ylabel('y');zlabel('u');
+set(gca,'FontName','Times New Roman');
+%% plot err
+surf(xg,yg,abs(us-sin(pi*xg).*sin(pi*yg)),'LineStyle','none');
+colorbar;
+view(3);
+xlabel('x');ylabel('y');zlabel('err');
+set(gca,'FontName','Times New Roman');
 %% SOR
 L = -tril(A,-1);
 U = -triu(A,1);
@@ -91,19 +106,27 @@ for omega = omegas
     errss(i) = norm(err,inf);
 end
 
-subplot(1,2,1);
-plot(omegas,errss);
+t = tiledlayout(1,2,'TileSpacing','Compact');
+title(t,sprintf('N = %d',N+1),'FontName','Times New Roman');
+
+nexttile(1);
+plot(omegas,errss,'*');
 xlabel('SOR \omega');
-ylabel('max final error');
-title(sprintf('N = %d',N+2));
-subplot(1,2,2);
-plot(omegas,itts);
+ylabel('norm_{\infty}(err)');
+set(gca,'FontName','Times New Roman');
+grid on;
+nexttile(2);
+plot(omegas,itts,'*');
 xlabel('SOR \omega');
-ylabel('num of iterations');
-title(sprintf('N = %d',N+2));
+ylabel('iterations');
+set(gca,'FontName','Times New Roman');
+grid on;
+
+
 a = gcf;
 a.Units = 'pixels';
 a.Position = [100,100,1000,400];
+
 
 %% CG
 x = zeros((N+1)^2,1);
@@ -172,17 +195,25 @@ for omega = omegas
     errss(i) = norm(x-ua,inf);
 end
 
+t = tiledlayout(1,2,'TileSpacing','Compact');
+title(t,sprintf('N = %d',N+1),'FontName','Times New Roman');
 
-subplot(1,2,1);
-plot(omegas,errss);
-xlabel('PCG \omega');
-ylabel('max final error');
-title(sprintf('N = %d',N+2));
-subplot(1,2,2);
-plot(omegas,itts);
-xlabel('PCG \omega');
-ylabel('num of iterations');
-title(sprintf('N = %d',N+2));
+nexttile(1);
+plot(omegas,errss,'*');
+xlabel('PCG SSOR preconditioner \omega');
+ylabel('norm_{\infty}(err)');
+set(gca,'FontName','Times New Roman');
+grid on;
+
+nexttile(2);
+plot(omegas,itts,'*');
+xlabel('PCG SSOR preconditioner \omega');
+ylabel('iterations');
+yticks(min(itts):max(itts));
+set(gca,'FontName','Times New Roman');
+grid on;
+
+
 a = gcf;
 a.Units = 'pixels';
 a.Position = [100,100,1000,400];

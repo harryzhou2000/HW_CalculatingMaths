@@ -1,0 +1,222 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第8次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{8.1(8-1)}
+
+\subsubsection*{(1)}
+
+验证：
+$$
+    \begin{aligned}
+        \int_0^1{1dx}=1             & =\frac{1}{4}\times 1 + \frac{3}{4}\times 1               \\
+        \int_0^1{xdx}=\frac{1}{2}   & =\frac{1}{4}\times 0 + \frac{3}{4}\times \frac{2}{3}     \\
+        \int_0^1{x^2dx}=\frac{1}{3} & =\frac{1}{4}\times 0 + \frac{3}{4}\times \frac{4}{9}     \\
+        \int_0^1{x^3dx}=\frac{1}{4} & \neq\frac{1}{4}\times 0 + \frac{3}{4}\times \frac{8}{27} \\
+    \end{aligned}
+$$
+因此为2次代数精度。
+
+\subsubsection*{(2)}
+
+在区间$[0,1]$验证，根据平移和齐次性$[0,1]$的代数精度就是公式的代数精度：
+$$
+    \begin{aligned}
+        \int_0^1{1dx}= 1            & =\frac{1}{2}(1+1) - \frac{1}{12}(0 - 0)    \\
+        \int_0^1{xdx}= \frac{1}{2}  & =\frac{1}{2}(0+1) - \frac{1}{12}(1 - 1)    \\
+        \int_0^1{x^2dx}=\frac{1}{3} & =\frac{1}{2}(0+1) - \frac{1}{12}(2 - 0)    \\
+        \int_0^1{x^3dx}=\frac{1}{4} & =\frac{1}{2}(0+1) - \frac{1}{12}(3 - 0)    \\
+        \int_0^1{x^4dx}=\frac{1}{5} & \neq\frac{1}{2}(0+1) - \frac{1}{12}(4 - 0) \\
+    \end{aligned}
+$$
+因此为3次代数精度。
+
+\subsection*{8.2(8-2)}
+
+\subsubsection*{(1)}
+
+代入$1,x,x^2$有约束：
+$$
+    \left\{
+    \begin{array}{rl}
+        C_0 + C_1 + C_2 & = 2          \\
+        C_1 + 2C_2      & =2           \\
+        C_1 + 4C_2      & =\frac{8}{3} \\
+    \end{array}
+    \right.
+$$
+线性方程组，解得$C_0=\frac{1}{3},\ C_1=\frac{4}{3},\ C_2=\frac{1}{3}$，
+代入$x^3,x^4$，可知：
+$$
+    \begin{aligned}
+        C_1+8C_2  & =\frac{16}{4}    \\
+        C_1+16C_2 & \neq\frac{32}{5}
+    \end{aligned}
+$$
+因此有3次代数精度。
+
+代入$1,x,x^2$有约束：
+$$
+    \left\{
+    \begin{array}{rl}
+        \frac{1}{2} + C_1           & = 1          \\
+        \frac{1}{2}x_0 + C_1x_1     & =\frac{1}{2} \\
+        \frac{1}{2}x_0^2 + C_1x_1^2 & =\frac{1}{3} \\
+    \end{array}
+    \right.
+$$
+因此取$x_0<x_1$解得
+$C_1=\frac{1}{2},\ x_0=\frac{1}{2}-\frac{\sqrt{3}}{6},\ x_0=\frac{1}{2}+\frac{\sqrt{3}}{6}$
+
+代入$(x-\frac{1}{2})^3,(x-\frac{1}{2})^4$
+$$
+    \begin{aligned}
+        \frac{1}{2}\left[\left(
+            -\frac{\sqrt{3}}{6}
+            \right)^3+
+            \left(
+            \frac{\sqrt{3}}{6}
+        \right)^3\right]               & =0                \\
+        \frac{1}{2}\left[\left(
+            -\frac{\sqrt{3}}{6}
+            \right)^4+
+            \left(
+            \frac{\sqrt{3}}{6}
+        \right)^4\right] =\frac{1}{72} & \neq \frac{1}{80} \\
+    \end{aligned}
+$$
+因此有3次代数精度，符合Gauss型求积的情况。
+
+
+\subsection*{8.3(8-5)}
+有2次代数精度。
+则代入$1,x,x^2$：
+$$
+    \left\{
+    \begin{array}{rl}
+        C_0+C_1 & = 1          \\
+        B_0+C_1 & =\frac{1}{2} \\
+        C_1     & =\frac{1}{3} \\
+    \end{array}
+    \right.
+$$
+解得$C_0=\frac{2}{3},\ C_1=\frac{1}{3},\ B_0=\frac{1}{6}$。
+考虑这是一个节点Newton插值，节点为$0,0,1$，则直接应用余项公式：
+$$
+    E(f)=\int_0^1{
+    R(x)dx
+    }=\int_0^1{
+    \frac{1}{3!}f'''(\xi(x))\omega_3(x)dx
+    }
+$$
+其中$\xi(x)\in(0,1)$，由于$\omega_3(x)=x^2(x-1)$不变号，
+根据积分中值定理，有：
+$$
+    E(f)=\frac{1}{3!}f'''(\eta)\int_0^1{
+    \omega_3(x)dx
+    }
+    =-\frac{1}{72}f'''(\eta)
+$$
+其中$\eta\in(0,1)$，则可知$k=-\frac{1}{72}$。
+
+
+
+
+\subsection*{8.4(8-8)}
+为权是$\sqrt{x}$的Gauss积分，
+构建正交基。
+
+$P_0=1$，则根据
+$$
+    \begin{aligned}
+        \int_0^1{\sqrt{x}P_0x dx}  & = \frac{2}{5} \\
+        \int_0^1{\sqrt{x}P_0^2 dx} & = \frac{2}{3} \\
+    \end{aligned}
+$$
+则取$P_1=x-\frac{3}{5}$。接下来根据
+$$
+    \begin{aligned}
+        \int_0^1{\sqrt{x}P_1P_1 dx} & = \frac{8}{175}  \\
+        \int_0^1{\sqrt{x}P_1x^2 dx} & = \frac{16}{315} \\
+        \int_0^1{\sqrt{x}P_0x^2 dx} & = \frac{2}{7}    \\
+    \end{aligned}
+$$
+计算得到$P_2=x^2-\frac{10}{9}x+\frac{5}{21}$。
+Gauss积分的节点取$P_2$的根，则为
+$x_0,x_1=\frac{5}{9}\pm\frac{2\sqrt{70}}{63}$。
+双精度结果为：
+$$
+    x_0=\frac{5}{9}-\frac{2\sqrt{70}}{63}\approx0.289949197925690,\
+    x_1=\frac{5}{9}+\frac{2\sqrt{70}}{63}\approx0.821161913185421
+$$
+代入$x_0,x_1$求系数：
+$$
+    \left\{
+    \begin{array}{rl}
+        A_0+A_1       & = \frac{2}{3} \\
+        A_0x_0+A_1x_1 & =\frac{2}{5}  \\
+    \end{array}
+    \right.
+$$
+解得：
+$$
+    A_0=\frac{1}{3}-\frac{\sqrt{70}}{150}\approx 0.277555998231062,\ 
+    A_1=\frac{1}{3}+\frac{\sqrt{70}}{150}\approx 0.389110668435605
+$$
+验证可得其有三次代数精度。
+
+
+
+
+\subsection*{8.5(8-10)}
+
+\subsection*{8.6(8-18)}
+
+\subsection*{8.7(8-19)}
+
+
+\end{document}

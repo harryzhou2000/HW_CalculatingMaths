@@ -1,8 +1,8 @@
 
-%xi = sym([-3, -2, 1, 4 ]);
-%fi = sym([2,0,3,1]);
-xi = ([-3, -2, 1, 4 ]);
-fi = ([2,0,3,1]);
+xi = sym([-3, -2, 1, 4 ]);
+fi = sym([2,0,3,1]);
+% xi = ([-3, -2, 1, 4 ]);
+% fi = ([2,0,3,1]);
 
 xi = reshape(xi,[],1);
 fi = reshape(fi,[],1);
@@ -38,9 +38,10 @@ end
 
 
 %%
+clf;
 hold on;
 for in = 1:n-1
-    plot(samps{in},hsdd{in}(samps{in}));
+    plot(samps{in},hsf{in}(samps{in}));
 end
 hold off;
 
