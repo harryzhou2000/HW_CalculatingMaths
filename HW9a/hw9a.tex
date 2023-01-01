@@ -1,0 +1,146 @@
+%!TEX program = xelatex
+\documentclass[UTF8,zihao=5]{ctexart}
+
+
+\title{{\bfseries 第9次作业}}
+\author{周涵宇 2022310984}
+\date{}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=0.75in,right=0.75in,top=1in,bottom=1in}
+
+\usepackage[
+UseMSWordMultipleLineSpacing,
+MSWordLineSpacingMultiple=1.5
+]{zhlineskip}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+% \setmonofont{JetBrains Mono}
+\setCJKmainfont{仿宋}[AutoFakeBold=true]
+\setCJKsansfont{黑体}[AutoFakeBold=true]
+
+% \usepackage{bm}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{array}
+\usepackage{float}
+
+\newcommand{\bm}[1]{{\mathbf{#1}}}
+
+\newcommand{\trans}[0]{^\mathrm{T}}
+\newcommand{\tran}[1]{#1^\mathrm{T}}
+\newcommand{\hermi}[0]{^\mathrm{H}}
+
+\newcommand*{\av}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\avld}[1]{\frac{\overline{D}#1}{Dt}}
+
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand*{\pdcd}[3]
+{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{9.1(9-5)}
+
+$$
+T(x,y,h) = hy' + \frac{h^2}{2}y'' + O(h^3) - hf(x+h,y+hf)
+$$
+其中默认指$x_n,y_n$位置的值。考虑
+$$
+f(x+h,y+hf)=f+\pd{f}{x}h+\pd{f}{y}hf+O(h^2)
+=y'+y''h+O(h^2)
+$$
+代入有
+$$
+T(x,y,h) = -\frac{h^2}{2}y'' + O(h^3)
+$$
+可见总体一阶精度，误差主项是$-\frac{h^2}{2}y''$。
+
+代入$f=\lambda y$，代入有：
+$$
+y_{n+1}=y_n(1+h\lambda+h^2\lambda^2)
+$$
+使$|1+h\lambda+h^2\lambda^2|<1$的区间为$(-1,0)$，为绝对稳定性区间。
+
+\subsection*{9.2(9-8)}
+
+$$
+T(x,y,h) = hy' + \frac{h^2}{2}y'' + \frac{h^3}{6}y''' + O(h^4)
+-hf(x+\frac{h}{2},y+\frac{h}{2}f)
+$$
+其中默认指$x_n,y_n$位置的值。考虑
+$$
+f(x+\frac{h}{2},y+\frac{h}{2}f)=
+f
++\frac{h}{2}\pd{f}{x}
++\frac{hf}{2}\pd{f}{y}
++\frac{h}{8}\pd{^2f}{x^2}
++\frac{h^2f^2}{8}\pd{^2f}{y^2}
++\frac{2h^2f}{8}\pdcd{f}{x}{y}
++O(h^3)
+$$
+代入即有
+$$
+T(x,y,h)
+=
+h^3\left(
+    \frac{y'''}{6}-\frac{\pd{^2f}{x^2}+\pd{^2f}{y^2}f^2+\pdcd{f}{x}{y}2f}{8}
+    \right)
+    +O(h^4)
+$$
+如果考虑
+$$
+\begin{aligned}
+    y'''& =\pd{^2f}{x^2}+\pdcd{f}{x}{y}f+
+    f\left(
+        \pd{^2f}{y^2}f+\pdcd{f}{x}{y}
+    \right)
+    +
+    \left(
+        \pd{f}{x}+\pd{f}{y}f
+    \right)\pd{f}{y}\\
+    & = \pd{^2f}{x^2} + 2\pdcd{f}{x}{y}f + \pd{^2f}{y^2}f^2
+    +\pd{f}{x}\pd{f}{y}+\left(\pd{f}{y}\right)^2f
+\end{aligned}
+$$
+则截断误差主项有：
+$$
+Tp = h^3\left(
+    \frac{
+        \pd{^2f}{x^2} + 2\pdcd{f}{x}{y}f + \pd{^2f}{y^2}f^2}{24}
+    +\frac{
+        \pd{f}{x}\pd{f}{y}+\left(\pd{f}{y}\right)^2f}{6}
+    \right)
+$$
+可见是二阶格式。
+
+\subsection*{9.3(9-10)}
+
+将试验方程$y'=\lambda y$代入，有
+$$
+y_{n+1}=y_n+h\lambda\frac{y_n+y_{n+1}}{2}
+$$
+解得
+$$
+y_{n+1}=\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}y_n
+$$
+当$h\lambda\in\mathbb{R}$，即可知
+$\left|\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}\right|<1\Leftrightarrow h\lambda<0$。
+因此绝对稳定性区间$(-\infty,0)$。
+
+\subsection*{9.4(9-16)}
+
+\subsection*{9.5(9-17)}
+
+\subsection*{9.6(9-18)}
+
+
+
+
+\end{document}
