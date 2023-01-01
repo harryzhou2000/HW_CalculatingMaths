@@ -212,11 +212,87 @@ $$
 
 
 
+
+
 \subsection*{8.5(8-10)}
+选取代数精度为3的2积分点Gauss-Chebyshev积分公式。
+积分点为2次Chebyshev多项式的零点，即$\cos{\frac{\pi}{4}}$和
+$\cos{\frac{3\pi}{4}}$，权都是$\pi/2$。则：
+$$
+\int_{-1}^1{\frac{x^2}{\sqrt{1-x^2}}dx}
+=
+\frac{\pi}{2}\left(
+    (1/\sqrt{2})^2+(-1/\sqrt{2})^2
+\right)
+=\frac{\pi}{2}
+$$
 
 \subsection*{8.6(8-18)}
+% 两者都是插值型求导公式，在$\{x_0-h,x_0+3h\}$
+% 以及$\{x_0,x_0+h,x_0+2h\}$上进行多项式插值再求导即得。
+
+\subsubsection*{(1)}
+$$
+\begin{aligned}
+    f(x_0+3h)&=f(x_0)+3hf'(x_0)+\frac{9}{2}h^2f''(\xi)\\
+    f(x_0-h) &=f(x_0)-hf'(x_0)+\frac{1}{2}h^2f''(\eta)
+\end{aligned}
+$$
+$\xi\in(x_0,x_0+3h),\eta\in(x_0-h,x_0)$，则
+$$
+\frac{f(x_0+3h)-f(x_0-h)}{4h}
+=f'(x_0)+h\left(
+    \frac{9}{8}f''(\xi)-\frac{1}{8}f''(\eta)
+\right)
+=f'(x_0)+hf''(\zeta)
+$$
+则余项是$-hf''(\zeta)$，其中$\zeta\in(x_0-h,x_0+3h)$
+
+\subsection*{(2)}
+Taylor展开法进行分析。
+
+$$
+\begin{aligned}
+    f(x_0+h)&=f(x_0)+hf'(x_0)+\frac{1}{2}h^2f''(x_0)+\frac{1}{6}h^3f'''(\xi)\\
+    f(x_0+2h)&=f(x_0)+2hf'(x_0)+\frac{4}{2}h^2f''(x_0)+\frac{8}{6}h^3f'''(\eta)\\
+\end{aligned}
+$$
+$\xi\in(x_0,x_0+h),\eta\in(x_0,x_0+2h)$，则
+$$
+\frac{4f(x_0+h)-3f(x_0)-f(x_0+2h)}{2h}
+=f'(x_0)+h^2\left(
+    \frac{4}{12}f'''(\xi)-\frac{8}{12}f'''(\eta)
+\right)
+=f'(x_0)-h^2\frac{f'''(\zeta)}{3}
+$$
+则余项是$h^2\frac{f'''(\zeta)}{3}$，其中$\zeta\in(x_0,x_0+2h)$
 
 \subsection*{8.7(8-19)}
+
+采用一阶中心差分：$f'(1)\approx \frac{f(1+h)-f(1-h)}{2h}=G_1(h)$
+
+取$h=0.1$，则有
+$$
+G(h)=2.722814563947418,\ 
+G(h/2)=2.719414587473179,\ 
+G(h/4)=2.718564991664882
+$$
+可见误差是2阶收敛的，
+根据$f'(1) - G(h) = \alpha_1h^2 + \alpha_2h^4...$，
+采用Richardson外推：
+
+$$
+G_2(h)=\frac{4^1G(h/2)-G(h)}{4^1-1}=2.718281261981766,\ 
+G_2(h/2)=\frac{4^1G(h/4)-G(h/2)}{4^1-1}=2.718281793062117
+$$
+可见误差是4阶收敛的，进一步采用外推：
+
+$$
+G_3(h)=\frac{4^2G_2(h/2)-G_2(h)}{4^2-1}=2.718281828467474
+$$
+为数值微分结果，有11位有效数字。
+$G_3(h)$相当于一个误差为$O(h^6)$数值微分公式。
+
 
 
 \end{document}

@@ -21,7 +21,7 @@ set(get(gca,'legend'),'FontName','Times New Roman');
 ylim([min(f(xi))-0.2,1.5]);
 %% lags cheb
 nexttile(2);
-xs = cos((2*(1:21)-1)/42*pi);
+xs = cos((2*(0:20)+1)/42*pi);
 ys = f(xs);
 xi = -1:0.01:1;
 plot(xi,f(xi),'k',xi,LagInterpolant(xs,ys,xi),'-.b',xs,ys,'ok');
