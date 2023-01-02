@@ -49,69 +49,69 @@ MSWordLineSpacingMultiple=1.5
 \subsection*{9.1(9-5)}
 
 $$
-T(x,y,h) = hy' + \frac{h^2}{2}y'' + O(h^3) - hf(x+h,y+hf)
+    T(x,y,h) = hy' + \frac{h^2}{2}y'' + O(h^3) - hf(x+h,y+hf)
 $$
 其中默认指$x_n,y_n$位置的值。考虑
 $$
-f(x+h,y+hf)=f+\pd{f}{x}h+\pd{f}{y}hf+O(h^2)
-=y'+y''h+O(h^2)
+    f(x+h,y+hf)=f+\pd{f}{x}h+\pd{f}{y}hf+O(h^2)
+    =y'+y''h+O(h^2)
 $$
 代入有
 $$
-T(x,y,h) = -\frac{h^2}{2}y'' + O(h^3)
+    T(x,y,h) = -\frac{h^2}{2}y'' + O(h^3)
 $$
 可见总体一阶精度，误差主项是$-\frac{h^2}{2}y''$。
 
 代入$f=\lambda y$，代入有：
 $$
-y_{n+1}=y_n(1+h\lambda+h^2\lambda^2)
+    y_{n+1}=y_n(1+h\lambda+h^2\lambda^2)
 $$
 使$|1+h\lambda+h^2\lambda^2|<1$的区间为$(-1,0)$，为绝对稳定性区间。
 
 \subsection*{9.2(9-8)}
 
 $$
-T(x,y,h) = hy' + \frac{h^2}{2}y'' + \frac{h^3}{6}y''' + O(h^4)
--hf(x+\frac{h}{2},y+\frac{h}{2}f)
+    T(x,y,h) = hy' + \frac{h^2}{2}y'' + \frac{h^3}{6}y''' + O(h^4)
+    -hf(x+\frac{h}{2},y+\frac{h}{2}f)
 $$
 其中默认指$x_n,y_n$位置的值。考虑
 $$
-f(x+\frac{h}{2},y+\frac{h}{2}f)=
-f
-+\frac{h}{2}\pd{f}{x}
-+\frac{hf}{2}\pd{f}{y}
-+\frac{h}{8}\pd{^2f}{x^2}
-+\frac{h^2f^2}{8}\pd{^2f}{y^2}
-+\frac{2h^2f}{8}\pdcd{f}{x}{y}
-+O(h^3)
+    f(x+\frac{h}{2},y+\frac{h}{2}f)=
+    f
+    +\frac{h}{2}\pd{f}{x}
+    +\frac{hf}{2}\pd{f}{y}
+    +\frac{h}{8}\pd{^2f}{x^2}
+    +\frac{h^2f^2}{8}\pd{^2f}{y^2}
+    +\frac{2h^2f}{8}\pdcd{f}{x}{y}
+    +O(h^3)
 $$
 代入即有
 $$
-T(x,y,h)
-=
-h^3\left(
+    T(x,y,h)
+    =
+    h^3\left(
     \frac{y'''}{6}-\frac{\pd{^2f}{x^2}+\pd{^2f}{y^2}f^2+\pdcd{f}{x}{y}2f}{8}
     \right)
     +O(h^4)
 $$
 如果考虑
 $$
-\begin{aligned}
-    y'''& =\pd{^2f}{x^2}+\pdcd{f}{x}{y}f+
-    f\left(
+    \begin{aligned}
+        y''' & =\pd{^2f}{x^2}+\pdcd{f}{x}{y}f+
+        f\left(
         \pd{^2f}{y^2}f+\pdcd{f}{x}{y}
-    \right)
-    +
-    \left(
+        \right)
+        +
+        \left(
         \pd{f}{x}+\pd{f}{y}f
-    \right)\pd{f}{y}\\
-    & = \pd{^2f}{x^2} + 2\pdcd{f}{x}{y}f + \pd{^2f}{y^2}f^2
-    +\pd{f}{x}\pd{f}{y}+\left(\pd{f}{y}\right)^2f
-\end{aligned}
+        \right)\pd{f}{y}                                             \\
+             & = \pd{^2f}{x^2} + 2\pdcd{f}{x}{y}f + \pd{^2f}{y^2}f^2
+        +\pd{f}{x}\pd{f}{y}+\left(\pd{f}{y}\right)^2f
+    \end{aligned}
 $$
 则截断误差主项有：
 $$
-Tp = h^3\left(
+    Tp = h^3\left(
     \frac{
         \pd{^2f}{x^2} + 2\pdcd{f}{x}{y}f + \pd{^2f}{y^2}f^2}{24}
     +\frac{
@@ -124,11 +124,11 @@ $$
 
 将试验方程$y'=\lambda y$代入，有
 $$
-y_{n+1}=y_n+h\lambda\frac{y_n+y_{n+1}}{2}
+    y_{n+1}=y_n+h\lambda\frac{y_n+y_{n+1}}{2}
 $$
 解得
 $$
-y_{n+1}=\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}y_n
+    y_{n+1}=\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}y_n
 $$
 当$h\lambda\in\mathbb{R}$，即可知
 $\left|\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}\right|<1\Leftrightarrow h\lambda<0$。
@@ -136,11 +136,56 @@ $\left|\frac{1+\frac{h\lambda}{2}}{1-\frac{h\lambda}{2}}\right|<1\Leftrightarrow
 
 \subsection*{9.4(9-16)}
 
+以下省略下标或者函数值时都是$x_n,y_n$的值。
+$$
+    \begin{aligned}
+        T_{n+3}
+         & =
+        y_{n+3}-y+\alpha(y_{n+2}-y_{n+1})
+        -\frac{3+\alpha}{2}h(f_{n+2}+f_{n+1})               \\
+         & =
+        (3+\alpha-3-\alpha)hy'
+        +\frac{9+3\alpha-3(3+\alpha)}{2}h^2y''
+        +\frac{27+7\alpha-\frac{15}{2}(3+\alpha)}{6}h^3y''' \\
+         & +
+        \frac{81+15\alpha-18(3+\alpha)}{24}h^4y^{(4)}
+        +O(h^5)
+    \end{aligned}
+$$
+可见，当且仅当$\alpha=9$，有$T_{n+3}=O(h^5)$，有四阶精度。
+
 \subsection*{9.5(9-17)}
+
+特征多项式：
+$$
+    \begin{aligned}
+        \rho(\lambda)   & = \frac{1}{4}(4\lambda^3+\lambda^2-2\lambda-3) \\
+        \sigma(\lambda) & = \frac{1}{8}(19\lambda^2+5)
+    \end{aligned}
+$$
+可见
+$$
+\begin{aligned}
+    \rho(1)=0,\ \rho'(1)=\frac{12+2-2}{4}=3,\ 
+    \sigma(1)=\frac{24}{8}=3=\rho'(1)
+\end{aligned}
+$$
+因此相容。
+
+第一特征多项式的根为：
+$$
+\lambda=1,\ \lambda=\frac{-5\pm i\sqrt{23}}{8}
+$$
+后两个根绝对值都小于1。因此稳定，因此收敛。
+
 
 \subsection*{9.6(9-18)}
 
-
+第一特征多项式：
+$$
+\rho(\lambda)=\lambda^2+\lambda-2
+$$
+其有根$\lambda=-2$，因此不稳定，因此不收敛。
 
 
 \end{document}
